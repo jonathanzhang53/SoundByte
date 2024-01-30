@@ -1,23 +1,45 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useEffect, useState } from 'react';
+
+const API_URL = 'https://api.edmtrain.com/v1/';
+const API_KEY = '0c2eac8f-7ad2-47ad-8e3d-be23128d8900';
 
 function App() {
+  const [events, setEvents] = useState([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch(`${API_URL}events?client=${API_KEY}`);
+        const data = await response.json();
+
+        if (data.success) {
+          setEvents(data.data);
+        } else {
+          console.error('API request failed:', data.message);
+        }
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }
+    };
+
+    fetchData();
+  }, []);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <h1>Upcoming Events</h1>
+      <ul>
+        {events.map((event) => (
+          <li key={event.id}>
+            <strong>{event.name || 'Unnamed Event'}</strong>
+            <p>Date: {event.date}</p>
+            <p>Venue: {event.venue.name} - {event.venue.location}</p>
+            <p>Artists: {event.artistList.map((artist) => artist.name).join(', ')}</p>
+            <a href={event.link}>More Info</a>
+            <hr />
+          </li>
+        ))}
+      </ul>
     </div>
   );
 }
