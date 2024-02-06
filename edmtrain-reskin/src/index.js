@@ -12,7 +12,7 @@ L.Icon.Default.mergeOptions({
   shadowUrl: require('leaflet/dist/images/marker-shadow.png'),
 });
 
-const API_URL = 'https://api.edmtrain.com/v1/';
+const API_URL = 'https://edmtrain.com/api/';
 const API_KEY = '0c2eac8f-7ad2-47ad-8e3d-be23128d8900';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
