@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 
 
 function EventsPage({ events }) {
-
   const [searchDates, setDates] = useState('');
   const [searchLocation, setLocation] = useState('');
 
@@ -12,6 +11,7 @@ function EventsPage({ events }) {
     const matchLocation = !searchLocation || event.venue.location.includes(searchLocation);
     return matchDates && matchLocation;
   });
+
   return (
    <>
   <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '10px', width: '65%' }}>
