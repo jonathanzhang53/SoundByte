@@ -8,8 +8,8 @@ const useFetchEvents = () => {
   useEffect(() => {
     const fetchData = async () => {
       setIsLoading(true);
-      const API_URL = 'https://edmtrain.com/api/events';
-      const API_KEY = '0c2eac8f-7ad2-47ad-8e3d-be23128d8900';
+      const API_URL = process.env.REACT_APP_API_URL;
+      const API_KEY = process.env.REACT_APP_API_KEY;
       try {
         const response = await fetch(`${API_URL}?client=${API_KEY}`);
         const data = await response.json();
