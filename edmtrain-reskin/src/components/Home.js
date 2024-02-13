@@ -7,7 +7,20 @@ import EventMap from './EventMap';
 function Home() {
   const { events, isLoading, error } = useFetchEvents();
 
-  const position = [51.505, -0.09];
+  // TODO: DELETE LATER
+  const positions = [
+    [51.505, -0.09],
+    [51.515, -0.10],
+    [51.525, -0.11],
+    [51.535, -0.12],
+    [51.545, -0.13],
+    [51.555, -0.14],
+    [51.565, -0.15],
+    [51.575, -0.16],
+    [51.585, -0.17],
+    [51.595, -0.18],
+  ];
+
   const [filterDates, setFilterDates] = useState('');
   const [filterEDM, setFilterEDM] = useState('');
   const [filterNonEDM, setFilterNonEDM] = useState('');
@@ -23,7 +36,7 @@ function Home() {
         setFilterNonEDM={setFilterNonEDM}
       />
 
-      <EventMap position={position} />
+      <EventMap positions={positions} />
     </div>
   );
 }
