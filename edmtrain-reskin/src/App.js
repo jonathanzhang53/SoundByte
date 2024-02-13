@@ -9,6 +9,10 @@ function App() {
   return (
     <Router>
       <div>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/events" element={<EventsPage events={events} />} />
+        </Routes>
         <nav>
           <ul>
             <li>
@@ -19,10 +23,6 @@ function App() {
             </li>
           </ul>
         </nav>
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/events" element={<EventsPage events={events} />} />
-        </Routes>
       </div>
     </Router>
   );
