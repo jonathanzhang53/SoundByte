@@ -3,6 +3,7 @@ import 'leaflet/dist/leaflet.css';
 import useFetchEvents from '../hooks/useFetchEvents';
 import FilterBar from './FilterBar';
 import EventMap from './EventMap';
+import Sidebar from './Sidebar';
 
 function Home() {
   const { events, isLoading, error } = useFetchEvents();
@@ -37,6 +38,9 @@ function Home() {
       />
 
       <EventMap positions={positions} />
+    
+      {/* FIXME: sidebar overlay map */}
+      {/* <Sidebar events={events} /> */}
     </div>
   );
 }
