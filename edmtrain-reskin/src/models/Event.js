@@ -8,7 +8,7 @@ class Event {
     this.artistList = artistList.map(artist => new Artist(artist));
   }
 }
-  
+
 class Venue {
   constructor({ name, location, address, state, latitude, longitude }) {
     // REQUIRED
@@ -27,5 +27,7 @@ class Artist {
     this.name = name;
   }
 }
-  
+
+export { Venue, Artist };
+
 export default Event;
