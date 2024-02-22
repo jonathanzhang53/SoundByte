@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 
-
 function EventsPage({ events }) {
   const [searchDates, setDates] = useState('');
   const [searchLocation, setLocation] = useState('');
