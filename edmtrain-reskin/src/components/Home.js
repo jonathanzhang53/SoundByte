@@ -20,12 +20,12 @@ function Home({events}) {
   //filters based on search criteria
   const filteredEvents = events.filter(event => {
     const matchDates = !searchDates || event.date.includes(searchDates);
-    const matchLocation = !searchLocation || event.venue.location.includes(searchLocation);
+    const matchLocation = !searchLocation || event.venue.location.toLowerCase().includes(searchLocation.toLowerCase());
     return matchDates && matchLocation;
   });
 
   //Cuts off filtered markers at 500
-  const first10 = filteredEvents.slice(0, 500);
+  const first10 = filteredEvents.slice(0, 100);
 
   // Extract latitude and longitude coordinates into positions array
   first10.forEach(event => {
@@ -50,7 +50,7 @@ function Home({events}) {
         style={{ width: '30%', padding: '5px' }} />
   </div>
 
-      <EventMap positions={positions} />
+      <EventMap filteredEvents={first10} />
     
       {/* FIXME: sidebar overlay map */}
       {/* <Sidebar events={events} /> */}
