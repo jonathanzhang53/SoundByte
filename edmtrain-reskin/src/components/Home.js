@@ -5,22 +5,29 @@ import FilterBar from './FilterBar';
 import EventMap from './EventMap';
 import Sidebar from './Sidebar';
 
-function Home() {
-  const { events, isLoading, error } = useFetchEvents();
+function Home({events}) {
 
-  // TODO: DELETE LATER
   const positions = [
-    [51.505, -0.09],
-    [51.515, -0.10],
-    [51.525, -0.11],
-    [51.535, -0.12],
-    [51.545, -0.13],
-    [51.555, -0.14],
-    [51.565, -0.15],
-    [51.575, -0.16],
-    [51.585, -0.17],
-    [51.595, -0.18],
+    [29.6520,-82.3250]
   ];
+
+  // Fetch the first 10 events
+  if(events.length >0){
+    const first10 = events.slice(0, 10);
+
+  // Extract latitude and longitude coordinates into positions array
+
+  const filteredEvents = events.filter(event => {
+    const matchLocation = event.venue.location.includes("Gainesville");
+    return matchLocation;
+  });
+  
+   first10.forEach(event => {
+    positions.push([event.venue.latitude, event.venue.longitude]);
+  });
+    console.log(first10);
+    console.log(positions[0]);
+  }
 
   const [filterDates, setFilterDates] = useState('');
   const [filterEDM, setFilterEDM] = useState('');
