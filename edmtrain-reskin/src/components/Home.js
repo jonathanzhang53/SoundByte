@@ -5,39 +5,52 @@ import FilterBar from './FilterBar';
 import EventMap from './EventMap';
 import Sidebar from './Sidebar';
 
-function Home() {
-  const { events, isLoading, error } = useFetchEvents();
+function Home({events}) {
 
-  // TODO: DELETE LATER
+  //needs an initial coordinate to set the start as or else map doesn't generate
+  //this is set to Gainesville's lat and long for rn
   const positions = [
-    [51.505, -0.09],
-    [51.515, -0.10],
-    [51.525, -0.11],
-    [51.535, -0.12],
-    [51.545, -0.13],
-    [51.555, -0.14],
-    [51.565, -0.15],
-    [51.575, -0.16],
-    [51.585, -0.17],
-    [51.595, -0.18],
+    [29.6520,-82.3250]
   ];
 
-  const [filterDates, setFilterDates] = useState('');
-  const [filterEDM, setFilterEDM] = useState('');
-  const [filterNonEDM, setFilterNonEDM] = useState('');
+
+  const [searchDates, setDates] = useState('');
+  const [searchLocation, setLocation] = useState('');
+
+  //filters based on search criteria
+  const filteredEvents = events.filter(event => {
+    const matchDates = !searchDates || event.date.includes(searchDates);
+    const matchLocation = !searchLocation || event.venue.location.toLowerCase().includes(searchLocation.toLowerCase());
+    return matchDates && matchLocation;
+  });
+
+  //Cuts off filtered markers at 500
+  const first10 = filteredEvents.slice(0, 100);
+
+  // Extract latitude and longitude coordinates into positions array
+  first10.forEach(event => {
+    positions.push([event.venue.latitude, event.venue.longitude]);
+  });
+
 
   return (
     <div style={{ height: '100vh', display: 'flex', flexDirection: 'column', backgroundColor: '#9E6060', paddingTop: '50px' }}>
-      <FilterBar
-        filterDates={filterDates}
-        setFilterDates={setFilterDates}
-        filterEDM={filterEDM}
-        setFilterEDM={setFilterEDM}
-        filterNonEDM={filterNonEDM}
-        setFilterNonEDM={setFilterNonEDM}
-      />
+      <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '10px', width: '65%' }}>
+   <input
+      type="text"
+      placeholder="Search Date (MM-DD-YYYY)"
+      value={searchDates}
+      onChange={e => setDates(e.target.value)}
+      style={{ width: '30%', padding: '5px', marginLeft: '10px' }} />
+    <input
+        type="text"
+        placeholder="Search by City"
+        value={searchLocation}
+        onChange={e => setLocation(e.target.value)}
+        style={{ width: '30%', padding: '5px' }} />
+  </div>
 
-      <EventMap positions={positions} />
+      <EventMap filteredEvents={first10} />
     
       {/* FIXME: sidebar overlay map */}
       {/* <Sidebar events={events} /> */}
