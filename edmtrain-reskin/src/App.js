@@ -10,7 +10,7 @@ function App() {
     <Router>
       <div>
         <Routes>
-          <Route path="/" element={<Home />} />
+          <Route path="/" element={<Home events={events}/>} />
           <Route path="/events" element={<EventsPage events={events} />} />
         </Routes>
         <nav>
