@@ -1,8 +1,10 @@
 import React from 'react';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
+import useFetchCities from '../hooks/useFetchCities';
 
 function Searchbar({ searchStart,  setStartDate, searchEnd,  setEndDate, searchLocation, setSearchLocation }) {
+  const cities = useFetchCities();
   return (
     <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '10px', width: '65%', zIndex: 1000 , marginLeft: '100px' }}>
       <DatePicker
@@ -19,13 +21,17 @@ function Searchbar({ searchStart,  setStartDate, searchEnd,  setEndDate, searchL
         placeholderText="End Date (YYYY-MM-DD)"
         style={{ width: '30%', padding: '5px', marginLeft: '10px' }}
       />
-      <input
-        type="text"
-        placeholder="Search by City"
+      <select
         value={searchLocation}
         onChange={e => setSearchLocation(e.target.value)}
         style={{ width: '30%', height: '7px', padding: '5px'}}
       />
+      >
+        <option value="">Select a City</option>
+        {cities.map((city, index) => (
+          <option key={index} value={city.name}>{city.name}</option>
+        ))}
+      </select>
     </div>
   );
 }

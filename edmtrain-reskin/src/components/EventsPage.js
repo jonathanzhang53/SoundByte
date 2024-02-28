@@ -10,7 +10,6 @@ function EventsPage({ events }) {
   const endDate = new Date(searchEnd);
   endDate.setUTCHours(0, 0, 0, 0); 
 
-  // Filter events based on search bar: dates, EDM, non-EDM events
   const filteredEvents = events.filter(event => {
     const eventDate = new Date(event.date);
     eventDate.setUTCHours(0, 0, 0, 0); 
