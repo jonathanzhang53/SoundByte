@@ -34,8 +34,10 @@ function Home({events}) {
       {/* Map container */}
       <div style={{ flex: 1 }}>
         <Searchbar
-          searchDates={searchDates}
-          setSearchDates={setDates}
+       searchStart={searchStart}
+       setStartDate={setStart}
+       searchEnd={searchEnd}
+       setEndDate={setEnd}
           searchLocation={searchLocation}
           setSearchLocation={setLocation}
         />
