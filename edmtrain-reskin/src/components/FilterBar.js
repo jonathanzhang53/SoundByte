@@ -1,3 +1,5 @@
+// TODO: THIS MAY BE OLD CODE. R WE USING?
+
 import React from 'react';
 
 function FilterBar({ filterDates, setFilterDates, filterEDM, setFilterEDM, filterNonEDM, setFilterNonEDM }) {

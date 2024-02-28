@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import Searchbar from './Searchbar';
 
 function EventsPage({ events }) {
   const [searchDates, setDates] = useState('');
@@ -12,22 +13,15 @@ function EventsPage({ events }) {
   });
 
   return (
-   <>
-  <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '10px', width: '65%' }}>
-   <input
-      type="text"
-      placeholder="Search Date (MM-DD-YYYY)"
-      value={searchDates}
-      onChange={e => setDates(e.target.value)}
-      style={{ width: '30%', padding: '5px', marginLeft: '10px' }} />
-    <input
-        type="text"
-        placeholder="Search by City"
-        value={searchLocation}
-        onChange={e => setLocation(e.target.value)}
-        style={{ width: '30%', padding: '5px' }} />
-  </div>
-        <ul>
+    <>
+      <Searchbar
+        searchDates={searchDates}
+        setSearchDates={setDates}
+        searchLocation={searchLocation}
+        setSearchLocation={setLocation}
+      />
+      
+      <ul>
         {filteredEvents.map((event) => (
           <li key={event.id}>
             <strong>{event.name || 'Unnamed Event'}</strong>
@@ -38,7 +32,8 @@ function EventsPage({ events }) {
             <hr />
           </li>
         ))}
-      </ul></>
+      </ul>
+    </>
   );
 }
 
