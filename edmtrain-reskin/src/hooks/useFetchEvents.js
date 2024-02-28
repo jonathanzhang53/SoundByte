@@ -33,6 +33,7 @@ const useFetchEvents = () => {
 
             return new Event(
               eventData.link,
+              eventData.name,
               eventData.ages,
               eventData.date,
               eventData.startTime,

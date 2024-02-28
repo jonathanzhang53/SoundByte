@@ -1,6 +1,7 @@
 class Event {
-  constructor(link=null, ages=null, date, startTime=null, endTime=null, venue, artistList) {
+  constructor(link=null, name=null, ages=null, date, startTime=null, endTime=null, venue, artistList) {
     this.link = link; // OPTIONAL
+    this.name = name; // OPTIONAL
     this.ages = ages; // OPTIONAL
     this.date = date;
     this.startTime = startTime; // OPTIONAL

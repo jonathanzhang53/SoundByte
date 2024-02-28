@@ -17,7 +17,7 @@ function Home({events}) {
   //filters based on search criteria
   const filteredEvents = events.filter(event => {
     const matchDates = !searchDates || event.date.includes(searchDates);
-    const matchLocation = !searchLocation || event.venue.location.toLowerCase().includes(searchLocation.toLowerCase());
+    const matchLocation = !searchLocation || event.venue.location.toLowerCase().startsWith(searchLocation.toLowerCase());
     return matchDates && matchLocation;
   });
 
