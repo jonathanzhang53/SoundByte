@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import { MapContainer, TileLayer, Marker, Popup, useMap } from 'react-leaflet';
 import mapMarkerSvg from '../assets/map_marker.svg';
 import L from 'leaflet';
-import { Artist } from '../models/Event';
 
 // delete L.Icon.Default.prototype._getIconUrl;
 // L.Icon.Default.mergeOptions({

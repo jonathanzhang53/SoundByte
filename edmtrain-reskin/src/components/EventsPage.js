@@ -5,7 +5,7 @@ function EventsPage({ events }) {
   const [searchStart, setStart] = useState('');
   const [searchEnd, setEnd] = useState('');
   const [searchLocation, setLocation] = useState('');
-  const [mapCenter, setMapCenter] = useState(null);
+  const [setMapCenter] = useState(null);
 
   const startDate = new Date(searchStart);
   startDate.setUTCHours(0, 0, 0, 0); 
