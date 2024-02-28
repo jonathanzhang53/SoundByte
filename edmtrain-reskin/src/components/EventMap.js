@@ -1,7 +1,6 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
 import mapMarkerSvg from '../assets/map_marker.svg';
-
 import L from 'leaflet';
 import { Artist } from '../models/Event';
 
@@ -13,18 +12,33 @@ import { Artist } from '../models/Event';
 // });
 
 function EventMap({ filteredEvents }) {
-    const customIcon = new L.Icon({
-        iconUrl: mapMarkerSvg, // The URL to the image to use as the icon
-        iconSize: [38, 95], // Size of the icon in pixels
-        iconAnchor: [22, 94], // Point of the icon which will correspond to marker's location
-        popupAnchor: [-3, -76], // Point from which the popup should open relative to the iconAnchor
-    });
-    const bounds = [
-      [90, -180],  // Northeast coordinates
-      [-90, 180]   // Southwest coordinates
-    ];
+  const [currentPosition, setCurrentPosition] = useState([29.6520, -82.3250]); // Default to Gainesville, FL
+  const customIcon = new L.Icon({
+      iconUrl: mapMarkerSvg,  // The URL to the image to use as the icon
+      iconSize: [38, 95],  // Size of the icon in pixels
+      iconAnchor: [22, 94],  // Point of the icon which will correspond to marker's location
+      popupAnchor: [-3, -76],  // Point from which the popup should open relative to the iconAnchor
+  });
+  const bounds = [
+    [90, -180],  // Northeast coordinates
+    [-90, 180]   // Southwest coordinates
+  ];
+
+  // Get user's current location
+  useEffect(() => {
+    navigator.geolocation.getCurrentPosition(
+      (position) => {
+        const { latitude, longitude } = position.coords;
+        setCurrentPosition([latitude, longitude]);
+      },
+      () => {
+        console.error('Could not fetch your current location.');
+      }
+    );
+  }, []);
+
     return (
-      <MapContainer center={[29.6520,-82.3250]} zoom={13} maxBounds={bounds} style={{ height: 'calc(100vh - 100px)', width: '100%' }}>
+      <MapContainer center={currentPosition} zoom={13} maxBounds={bounds} style={{ height: 'calc(100vh - 100px)', width: '100%' }}>
         <TileLayer
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
@@ -55,7 +69,7 @@ function EventMap({ filteredEvents }) {
           </Marker>
         ))}
       </MapContainer>
-    );
-  }
+  );
+}
 
 export default EventMap;

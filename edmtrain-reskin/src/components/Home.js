@@ -5,43 +5,53 @@ import EventMap from './EventMap';
 import Sidebar from './Sidebar';
 
 function Home({events}) {
-  //needs an initial coordinate to set the start as or else map doesn't generate
-  //this is set to Gainesville's lat and long for rn
-  const positions = [
-    [29.6520,-82.3250]
-  ];
-
-  const [searchDates, setDates] = useState('');
+  const [searchStart, setStart] = useState('');
+  const [searchEnd, setEnd] = useState('');
   const [searchLocation, setLocation] = useState('');
+  const startDate = new Date(searchStart);
+  startDate.setUTCHours(0, 0, 0, 0); 
+  const endDate = new Date(searchEnd);
+  endDate.setUTCHours(0, 0, 0, 0); 
 
-  //filters based on search criteria
+
+  // Filters based on search criteria
   const filteredEvents = events.filter(event => {
-    const matchDates = !searchDates || event.date.includes(searchDates);
+    const eventDate = new Date(event.date);
+    eventDate.setUTCHours(0, 0, 0, 0);
+    const matchDates = (!searchStart && !searchEnd) || 
+                       (eventDate >= startDate && eventDate <= endDate) || 
+                       (eventDate >= startDate && !searchEnd) || 
+                       (!searchStart && eventDate <= endDate);
     const matchLocation = !searchLocation || event.venue.location.toLowerCase().startsWith(searchLocation.toLowerCase());
     return matchDates && matchLocation;
   });
 
-  //Cuts off filtered markers at 500
+  // Cuts off filtered markers at 500
   const first10 = filteredEvents.slice(0, 100);
 
-  // Extract latitude and longitude coordinates into positions array
-  first10.forEach(event => {
-    positions.push([event.venue.latitude, event.venue.longitude]);
-  });
-
   return (
-    <div style={{ height: '100vh', display: 'flex', flexDirection: 'column', backgroundColor: '#9E6060', paddingTop: '50px' }}>
-      <Searchbar
-        searchDates={searchDates}
-        setSearchDates={setDates}
-        searchLocation={searchLocation}
-        setSearchLocation={setLocation}
-      />
-      
-      <EventMap filteredEvents={first10} />
-    
-      {/* FIXME: sidebar overlay map */}
-      {/* <Sidebar events={events} /> */}
+    <div style={{ height: '100vh', display: 'flex', backgroundColor: '#9E6060', paddingTop: '50px' }}>
+      {/* Map container */}
+      <div style={{ flex: 1 }}>
+        <Searchbar
+       searchStart={searchStart}
+       setStartDate={setStart}
+       searchEnd={searchEnd}
+       setEndDate={setEnd}
+          searchLocation={searchLocation}
+          setSearchLocation={setLocation}
+        />
+        
+        {/* EventMap with adjusted width */}
+        <div style={{ width: '100%', height: '100%', zIndex: 1 }}>
+          <EventMap filteredEvents={first10} />
+        </div>
+      </div>
+
+      {/* Sidebar with adjusted width */}
+      <div style={{ width: '20%', backgroundColor: '#FFFFFF', padding: '5px', overflowY: 'auto', zIndex: 2 }}>
+        <Sidebar events={first10} />
+      </div>
     </div>
   );
 }

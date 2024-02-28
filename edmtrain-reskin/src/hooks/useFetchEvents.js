@@ -43,8 +43,7 @@ const useFetchEvents = () => {
             );
           });
 
-          console.log(transformedEvents);
-
+          // console.log(transformedEvents);
           setEvents(transformedEvents);
         } else {
           setError('API request failed: ' + data.message);
