@@ -6,9 +6,11 @@ import useFetchEvents from './hooks/useFetchEvents';
 
 function App() {
   const { events } = useFetchEvents();
+
   return (
     <Router>
       <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+        {/* Nav bar */}
         <nav style={{ marginBottom: '20px' }}>
           <ul style={{ listStyleType: 'none', padding: 0 }}>
             <li style={{ display: 'inline', marginRight: '10px' }}>
@@ -22,6 +24,7 @@ function App() {
             </li>
           </ul>
         </nav>
+
         <Routes>
           <Route path="/" element={<Home events={events}/>} />
           <Route path="/events" element={<EventsPage events={events} />} />

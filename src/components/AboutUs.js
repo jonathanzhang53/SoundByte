@@ -1,9 +1,9 @@
 import React from 'react';
-import jona from "./pictures/jona.png";
-import court from "./pictures/court.png";
-import andrew from "./pictures/andrew.png";
-import cam from "./pictures/cam.png";
-import hannah from "./pictures/hannah.png";
+import jona from "../assets/pictures/jona.png";
+import court from "../assets/pictures/court.png";
+import andrew from "../assets/pictures/andrew.png";
+import cam from "../assets/pictures/cam.png";
+import hannah from "../assets/pictures/hannah.png";
 
 function AboutUs() {
   const colors = {
@@ -14,8 +14,8 @@ function AboutUs() {
   };
 
   const fonts = {
-    heading: 'Georgia, serif', // Georgia font for headings
-    text: 'Georgia, serif', // Georgia font for text
+    heading: 'Georgia, serif',
+    text: 'Georgia, serif',
   };
 
   const styles = {
@@ -51,10 +51,10 @@ function AboutUs() {
     teamMember: {
       width: '200px',
       backgroundColor: colors.white,
-      borderRadius: '10px', // Rounded corners for cards
+      borderRadius: '10px',
       textAlign: 'center',
       overflow: 'hidden',
-      boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)', // Soft shadow for depth
+      boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
       padding: '10px',
     },
     teamImage: {
@@ -66,7 +66,7 @@ function AboutUs() {
     teamName: {
       marginTop: '10px',
       fontWeight: 'bold',
-      fontFamily: fonts.heading, // Apply Georgia font to names
+      fontFamily: fonts.heading, // Apply heading font to names
     },
   };
 

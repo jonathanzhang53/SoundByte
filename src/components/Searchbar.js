@@ -8,6 +8,7 @@ function Searchbar({ searchStart,  setStartDate, searchEnd,  setEndDate, searchL
   
   return (
     <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '10px', width: '65%', zIndex: 1000 , marginLeft: '100px' }}>
+      {/* Start Date Picker */}
       <DatePicker
         selected={searchStart}
         onChange={date => setStartDate(date)}
@@ -15,6 +16,8 @@ function Searchbar({ searchStart,  setStartDate, searchEnd,  setEndDate, searchL
         placeholderText="Start Date (YYYY-MM-DD)"
         style={{ width: '30%', padding: '5px', marginLeft: '10px' }}
       />
+
+      {/* End Date Picker */}
       <DatePicker
         selected={searchEnd}
         onChange={date => setEndDate(date)}
@@ -22,6 +25,8 @@ function Searchbar({ searchStart,  setStartDate, searchEnd,  setEndDate, searchL
         placeholderText="End Date (YYYY-MM-DD)"
         style={{ width: '30%', padding: '5px', marginLeft: '10px' }}
       />
+
+      {/* City Picker */}
       <select
         value={searchLocation}
         onChange={e => {
@@ -33,7 +38,7 @@ function Searchbar({ searchStart,  setStartDate, searchEnd,  setEndDate, searchL
       >
         <option value="">Select a City</option>
         {cities.map((city, index) => (
-          <option key={index} value={`${city.name},${city.lat},${city.lon}`}>{city.name}</option>
+          <option key={index} value={`${city.name},${city.lat},${city.lon}`}>{city.name + ", " + city.country}</option>
         ))}
       </select>
     </div>
