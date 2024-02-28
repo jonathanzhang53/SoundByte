@@ -8,11 +8,12 @@ function Home({events}) {
   const [searchStart, setStart] = useState('');
   const [searchEnd, setEnd] = useState('');
   const [searchLocation, setLocation] = useState('');
-  const startDate = new Date(searchStart);
-  startDate.setUTCHours(0, 0, 0, 0); 
-  const endDate = new Date(searchEnd);
-  endDate.setUTCHours(0, 0, 0, 0); 
+  const [mapCenter, setMapCenter] = useState(null);
 
+  const startDate = new Date(searchStart);
+  startDate.setUTCHours(0, 0, 0, 0);
+  const endDate = new Date(searchEnd);
+  endDate.setUTCHours(0, 0, 0, 0);
 
   // Filters based on search criteria
   const filteredEvents = events.filter(event => {
@@ -34,17 +35,18 @@ function Home({events}) {
       {/* Map container */}
       <div style={{ flex: 1 }}>
         <Searchbar
-       searchStart={searchStart}
-       setStartDate={setStart}
-       searchEnd={searchEnd}
-       setEndDate={setEnd}
+          searchStart={searchStart}
+          setStartDate={setStart}
+          searchEnd={searchEnd}
+          setEndDate={setEnd}
           searchLocation={searchLocation}
           setSearchLocation={setLocation}
+          setMapCenter={setMapCenter}
         />
         
         {/* EventMap with adjusted width */}
         <div style={{ width: '100%', height: '100%', zIndex: 1 }}>
-          <EventMap filteredEvents={first10} />
+          <EventMap filteredEvents={first10} center={mapCenter} />
         </div>
       </div>
 

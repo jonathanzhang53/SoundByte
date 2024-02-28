@@ -40,7 +40,7 @@ const useFetchCities = () => {
     fetchData();
   }, []);
 
-  console.log(cities);
+  // console.log(cities);
 
   return cities;
 };

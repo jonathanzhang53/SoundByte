@@ -5,6 +5,8 @@ function EventsPage({ events }) {
   const [searchStart, setStart] = useState('');
   const [searchEnd, setEnd] = useState('');
   const [searchLocation, setLocation] = useState('');
+  const [setMapCenter] = useState(null);
+
   const startDate = new Date(searchStart);
   startDate.setUTCHours(0, 0, 0, 0); 
   const endDate = new Date(searchEnd);
@@ -30,6 +32,7 @@ function EventsPage({ events }) {
         setEndDate={setEnd}
         searchLocation={searchLocation}
         setSearchLocation={setLocation}
+        setMapCenter={setMapCenter}
       />
       
       <ul>
