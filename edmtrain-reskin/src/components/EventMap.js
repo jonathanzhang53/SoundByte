@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
+import { MapContainer, TileLayer, Marker, Popup, useMap } from 'react-leaflet';
 import mapMarkerSvg from '../assets/map_marker.svg';
 import L from 'leaflet';
 
@@ -10,8 +10,19 @@ import L from 'leaflet';
 //   shadowUrl: require('leaflet/dist/images/marker-shadow.png'),
 // });
 
-function EventMap({ filteredEvents }) {
-  const [currentPosition, setCurrentPosition] = useState([29.6520, -82.3250]); // Default to Gainesville, FL
+function MapCenterUpdater({ center }) {
+  const map = useMap();
+  useEffect(() => {
+    if (center) {
+      map.flyTo([center.lat, center.lon], map.getZoom());
+    }
+  }, [center, map]);
+
+  return null;
+}
+
+function EventMap({ filteredEvents, center }) {
+  const [currentPosition, setCurrentPosition] = useState([29.6520, -82.3250]);  // Default to Gainesville, FL
   const customIcon = new L.Icon({
       iconUrl: mapMarkerSvg,  // The URL to the image to use as the icon
       iconSize: [38, 95],  // Size of the icon in pixels
@@ -36,6 +47,12 @@ function EventMap({ filteredEvents }) {
     );
   }, []);
 
+  useEffect(() => {
+    if (center) {
+      setCurrentPosition([center.lat, center.lon]);
+    }
+  }, [center]);
+
   return (
     <MapContainer center={currentPosition} zoom={13} maxBounds={bounds} style={{ height: 'calc(100vh - 100px)', width: '100%' }}>
       <TileLayer
@@ -49,6 +66,7 @@ function EventMap({ filteredEvents }) {
           </Popup>
         </Marker>
       ))}
+      <MapCenterUpdater center={center} />
     </MapContainer>
   );
 }

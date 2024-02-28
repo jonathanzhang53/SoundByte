@@ -8,11 +8,12 @@ function Home({events}) {
   const [searchStart, setStart] = useState('');
   const [searchEnd, setEnd] = useState('');
   const [searchLocation, setLocation] = useState('');
-  const startDate = new Date(searchStart);
-  startDate.setUTCHours(0, 0, 0, 0); 
-  const endDate = new Date(searchEnd);
-  endDate.setUTCHours(0, 0, 0, 0); 
+  const [mapCenter, setMapCenter] = useState(null);
 
+  const startDate = new Date(searchStart);
+  startDate.setUTCHours(0, 0, 0, 0);
+  const endDate = new Date(searchEnd);
+  endDate.setUTCHours(0, 0, 0, 0);
 
   // Filters based on search criteria
   const filteredEvents = events.filter(event => {
@@ -38,10 +39,11 @@ function Home({events}) {
         setEndDate={setEnd}
         searchLocation={searchLocation}
         setSearchLocation={setLocation}
+        setMapCenter={setMapCenter}
       />
-      
-      <EventMap filteredEvents={first10} />
-    
+
+      <EventMap filteredEvents={first10} center={mapCenter} />
+
       {/* FIXME: sidebar overlay map */}
       {/* <Sidebar events={events} /> */}
     </div>
