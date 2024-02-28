@@ -53,14 +53,16 @@ function EventMap({ filteredEvents, center }) {
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
       />
-
       {/* Generate markers for each event */}
       {filteredEvents.map((event, index) => (
         <Marker key={index} position={[event.venue.latitude, event.venue.longitude]} icon={customIcon}>
           <Popup>
           {event.name ? (
             <>
-              <div><strong>{event.name}</strong> is happening at <strong>{event.venue.name}</strong> on <strong>{event.date}</strong>.</div>
+              <div>
+                <strong>{event.name}</strong> is happening at <strong>{event.venue.name}</strong> on <strong>{event.date}</strong>.
+                {event.ages && ` ${event.ages}`}
+              </div>
               {event.artistList.length > 0 && (
                 <div>
                   Featuring: 
@@ -80,6 +82,7 @@ function EventMap({ filteredEvents, center }) {
               <>
                 <div>
                   <strong>{event.artistList[0].name}</strong> is playing at <strong>{event.venue.name}</strong> on <strong>{event.date}</strong>.
+                  {event.ages && ` ${event.ages}`}
                 </div>
                 {event.artistList.length > 1 && (
                   <div>
