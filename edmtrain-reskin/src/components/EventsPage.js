@@ -17,7 +17,7 @@ function EventsPage({ events }) {
                        (eventDate >= startDate && eventDate <= endDate) || 
                        (eventDate >= startDate && !searchEnd) || 
                        (!searchStart && eventDate <= endDate);
-    const matchLocation = !searchLocation || event.venue.location.includes(searchLocation);
+    const matchLocation = !searchLocation || event.venue.location.toLowerCase().startsWith(searchLocation.toLowerCase());
     return matchDates && matchLocation;
   });
 

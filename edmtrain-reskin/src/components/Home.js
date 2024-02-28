@@ -22,7 +22,7 @@ function Home({events}) {
                        (eventDate >= startDate && eventDate <= endDate) || 
                        (eventDate >= startDate && !searchEnd) || 
                        (!searchStart && eventDate <= endDate);
-    const matchLocation = !searchLocation || event.venue.location.toLowerCase().includes(searchLocation.toLowerCase());
+    const matchLocation = !searchLocation || event.venue.location.toLowerCase().startsWith(searchLocation.toLowerCase());
     return matchDates && matchLocation;
   });
 
