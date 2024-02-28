@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { MapContainer, TileLayer, Marker, Popup, useMap } from 'react-leaflet';
 import mapMarkerSvg from '../assets/map_marker.svg';
 import L from 'leaflet';
+import { Artist } from '../models/Event';
 
 // delete L.Icon.Default.prototype._getIconUrl;
 // L.Icon.Default.mergeOptions({
@@ -62,7 +63,25 @@ function EventMap({ filteredEvents, center }) {
       {filteredEvents.map((event, index) => (
         <Marker key={index} position={[event.venue.latitude, event.venue.longitude]} icon={customIcon}>
           <Popup>
-          <strong>{event.name || 'This event does not have a name but it is'}</strong> happening at {event.venue.name}.  Learn more <a href={event.link} target="_blank" rel="noopener noreferrer">here</a>
+            {event.name ? 
+              (<>
+                <strong>{event.name}</strong> is happening at <strong>{event.venue.name}</strong> 
+                {event.artistList.length > 0 && 
+                  `. Featuring: ${event.artistList.slice(0, 3).map(artist => artist.name).join(', ')}`}
+                {event.artistList.length > 3 && `, and more`}
+              </>)
+              : 
+              (event.artistList.length > 0 ?
+                (<>
+                  <strong>{event.artistList[0].name} </strong>
+                  is playing at <strong>{event.venue.name}</strong>{event.artistList.length > 1 && 
+                  `. Openers include: ${event.artistList.slice(1, 3).map(artist => artist.name).join(', ')}`}
+                </>)
+                : 
+                `Unknown rave happening at ${event.venue.name}`
+              )
+            }
+            . Learn more <a href={event.link} target="_blank" rel="noopener noreferrer">here</a>.
           </Popup>
         </Marker>
       ))}

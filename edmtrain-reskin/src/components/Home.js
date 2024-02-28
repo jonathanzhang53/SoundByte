@@ -23,29 +23,37 @@ function Home({events}) {
                        (eventDate >= startDate && eventDate <= endDate) || 
                        (eventDate >= startDate && !searchEnd) || 
                        (!searchStart && eventDate <= endDate);
-    const matchLocation = !searchLocation || event.venue.location.toLowerCase().includes(searchLocation.toLowerCase());
+    const matchLocation = !searchLocation || event.venue.location.toLowerCase().startsWith(searchLocation.toLowerCase());
     return matchDates && matchLocation;
   });
 
-  // Cuts off filtered markers at 500 (TEMPORARY)
-  const first10 = filteredEvents.slice(0, 500);
+  // Cuts off filtered markers at 500
+  const first10 = filteredEvents.slice(0, 100);
 
   return (
-    <div style={{ height: '100vh', display: 'flex', flexDirection: 'column', backgroundColor: '#9E6060', paddingTop: '50px' }}>
-      <Searchbar
-        searchStart={searchStart}
-        setStartDate={setStart}
-        searchEnd={searchEnd}
-        setEndDate={setEnd}
-        searchLocation={searchLocation}
-        setSearchLocation={setLocation}
-        setMapCenter={setMapCenter}
-      />
+    <div style={{ height: '100vh', display: 'flex', backgroundColor: '#9E6060', paddingTop: '50px' }}>
+      {/* Map container */}
+      <div style={{ flex: 1 }}>
+        <Searchbar
+          searchStart={searchStart}
+          setStartDate={setStart}
+          searchEnd={searchEnd}
+          setEndDate={setEnd}
+          searchLocation={searchLocation}
+          setSearchLocation={setLocation}
+          setMapCenter={setMapCenter}
+        />
+        
+        {/* EventMap with adjusted width */}
+        <div style={{ width: '100%', height: '100%', zIndex: 1 }}>
+          <EventMap filteredEvents={first10} center={mapCenter} />
+        </div>
+      </div>
 
-      <EventMap filteredEvents={first10} center={mapCenter} />
-
-      {/* FIXME: sidebar overlay map */}
-      {/* <Sidebar events={events} /> */}
+      {/* Sidebar with adjusted width */}
+      <div style={{ width: '20%', backgroundColor: '#FFFFFF', padding: '5px', overflowY: 'auto', zIndex: 2 }}>
+        <Sidebar events={first10} />
+      </div>
     </div>
   );
 }
