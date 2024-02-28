@@ -25,7 +25,6 @@ function Searchbar({ searchStart,  setStartDate, searchEnd,  setEndDate, searchL
         value={searchLocation}
         onChange={e => setSearchLocation(e.target.value)}
         style={{ width: '30%', height: '7px', padding: '5px'}}
-      />
       >
         <option value="">Select a City</option>
         {cities.map((city, index) => (
