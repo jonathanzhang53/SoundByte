@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
 import mapMarkerSvg from '../assets/map_marker.svg';
-
 import L from 'leaflet';
 
 // delete L.Icon.Default.prototype._getIconUrl;
