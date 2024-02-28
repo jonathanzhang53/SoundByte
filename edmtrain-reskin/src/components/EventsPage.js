@@ -5,7 +5,6 @@ function EventsPage({ events }) {
   const [searchDates, setDates] = useState('');
   const [searchLocation, setLocation] = useState('');
 
-  // Filter events based on search bar: dates, EDM, non-EDM events
   const filteredEvents = events.filter(event => {
     const matchDates = !searchDates || event.date.includes(searchDates);
     const matchLocation = !searchLocation || event.venue.location.includes(searchLocation);

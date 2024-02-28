@@ -5,29 +5,18 @@ import EventMap from './EventMap';
 import Sidebar from './Sidebar';
 
 function Home({events}) {
-  //needs an initial coordinate to set the start as or else map doesn't generate
-  //this is set to Gainesville's lat and long for rn
-  const positions = [
-    [29.6520,-82.3250]
-  ];
-
   const [searchDates, setDates] = useState('');
   const [searchLocation, setLocation] = useState('');
 
-  //filters based on search criteria
+  // Filters based on search criteria
   const filteredEvents = events.filter(event => {
     const matchDates = !searchDates || event.date.includes(searchDates);
     const matchLocation = !searchLocation || event.venue.location.toLowerCase().includes(searchLocation.toLowerCase());
     return matchDates && matchLocation;
   });
 
-  //Cuts off filtered markers at 500
-  const first10 = filteredEvents.slice(0, 100);
-
-  // Extract latitude and longitude coordinates into positions array
-  first10.forEach(event => {
-    positions.push([event.venue.latitude, event.venue.longitude]);
-  });
+  // Cuts off filtered markers at 500 (TEMPORARY)
+  const first10 = filteredEvents.slice(0, 500);
 
   return (
     <div style={{ height: '100vh', display: 'flex', flexDirection: 'column', backgroundColor: '#9E6060', paddingTop: '50px' }}>
