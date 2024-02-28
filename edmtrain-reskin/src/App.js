@@ -1,4 +1,3 @@
-import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 import EventsPage from './components/EventsPage';
 import Home from './components/Home'
@@ -6,7 +5,7 @@ import AboutUs from './components/AboutUs'
 import useFetchEvents from './hooks/useFetchEvents';
 
 function App() {
-  const { events, isLoading, error } = useFetchEvents();
+  const { events } = useFetchEvents();
   return (
     <Router>
       <div>
