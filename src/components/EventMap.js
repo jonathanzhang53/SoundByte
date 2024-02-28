@@ -58,25 +58,45 @@ function EventMap({ filteredEvents, center }) {
       {filteredEvents.map((event, index) => (
         <Marker key={index} position={[event.venue.latitude, event.venue.longitude]} icon={customIcon}>
           <Popup>
-            {event.name ? (
+          {event.name ? (
+            <>
+              <div><strong>{event.name}</strong> is happening at <strong>{event.venue.name}</strong> on <strong>{event.date}</strong>.</div>
+              {event.artistList.length > 0 && (
+                <div>
+                  Featuring: 
+                  <ul>
+                    {event.artistList.slice(0, 3).map((artist, index) => (
+                      <li key={index}>{artist.name}</li>
+                    ))}
+                    {event.artistList.length > 3 && (
+                      <li>+ {event.artistList.length - 3} more {event.artistList.length - 3 === 1 ? 'artist' : 'artists'}</li>
+                    )}
+                  </ul>
+                </div>
+              )}
+            </>
+          ) : (
+            event.artistList.length > 0 ? (
               <>
-                <strong>{event.name}</strong> is happening at <strong>{event.venue.name}</strong>
-                {event.artistList.length > 0 && 
-                  `. Featuring: ${event.artistList.slice(0, 3).map(artist => artist.name).join(', ')}`}
-                {event.artistList.length > 3 && `, and more`}
+                <div>
+                  <strong>{event.artistList[0].name}</strong> is playing at <strong>{event.venue.name}</strong> on <strong>{event.date}</strong>.
+                </div>
+                {event.artistList.length > 1 && (
+                  <div>
+                    Openers include: 
+                    <ul>
+                      {event.artistList.slice(1, 3).map((artist, index) => (
+                        <li key={index}>{artist.name}</li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
               </>
-            ) : (
-              event.artistList.length > 0 ? (
-                <>
-                  <strong>{event.artistList[0].name}</strong> 
-                  is playing at <strong>{event.venue.name}</strong>
-                  {event.artistList.length > 1 && 
-                    `. Openers include: ${event.artistList.slice(1, 3).map(artist => artist.name).join(', ')}`}
-                </>
-              ) : 
-              `Unknown rave happening at ${event.venue.name}`
-            )}
-            . Learn more <a href={event.link} target="_blank" rel="noopener noreferrer">here</a>.
+            ) : 
+            <div>Unknown event happening at <strong>{event.venue.name}</strong> on <strong>{event.date}</strong>.</div>
+          )
+          }
+          <div>Learn more <a href={event.link} target="_blank" rel="noopener noreferrer">here</a>.</div>
           </Popup>
         </Marker>
       ))}
