@@ -5,12 +5,23 @@ import EventMap from './EventMap';
 import Sidebar from './Sidebar';
 
 function Home({events}) {
-  const [searchDates, setDates] = useState('');
+  const [searchStart, setStart] = useState('');
+  const [searchEnd, setEnd] = useState('');
   const [searchLocation, setLocation] = useState('');
+  const startDate = new Date(searchStart);
+  startDate.setUTCHours(0, 0, 0, 0); 
+  const endDate = new Date(searchEnd);
+  endDate.setUTCHours(0, 0, 0, 0); 
+
 
   // Filters based on search criteria
   const filteredEvents = events.filter(event => {
-    const matchDates = !searchDates || event.date.includes(searchDates);
+    const eventDate = new Date(event.date);
+    eventDate.setUTCHours(0, 0, 0, 0);
+    const matchDates = (!searchStart && !searchEnd) || 
+                       (eventDate >= startDate && eventDate <= endDate) || 
+                       (eventDate >= startDate && !searchEnd) || 
+                       (!searchStart && eventDate <= endDate);
     const matchLocation = !searchLocation || event.venue.location.toLowerCase().includes(searchLocation.toLowerCase());
     return matchDates && matchLocation;
   });
@@ -21,8 +32,10 @@ function Home({events}) {
   return (
     <div style={{ height: '100vh', display: 'flex', flexDirection: 'column', backgroundColor: '#9E6060', paddingTop: '50px' }}>
       <Searchbar
-        searchDates={searchDates}
-        setSearchDates={setDates}
+        searchStart={searchStart}
+        setStartDate={setStart}
+        searchEnd={searchEnd}
+        setEndDate={setEnd}
         searchLocation={searchLocation}
         setSearchLocation={setLocation}
       />
