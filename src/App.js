@@ -1,3 +1,4 @@
+import React from 'react';
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 import { EventsProvider } from './contexts/EventsProvider';
 import EventsPage from './components/EventsPage';

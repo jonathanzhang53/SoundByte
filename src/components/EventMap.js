@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { MapContainer, TileLayer, Marker, Popup, useMap } from 'react-leaflet';
+import PropTypes from 'prop-types';
 import mapMarkerSvg from '../assets/map_marker.svg';
+
 import L from 'leaflet';
 
 function MapCenterUpdater({ center }) {
@@ -13,6 +15,13 @@ function MapCenterUpdater({ center }) {
 
   return null;
 }
+
+MapCenterUpdater.propTypes = {
+  center: PropTypes.shape({
+    lat: PropTypes.number.isRequired,
+    lon: PropTypes.number.isRequired,
+  }).isRequired,
+};
 
 function EventMap({ filteredEvents, center }) {
   const [currentPosition, setCurrentPosition] = useState([29.6520, -82.3250]);  // Default to Gainesville, FL
@@ -108,5 +117,25 @@ function EventMap({ filteredEvents, center }) {
     </MapContainer>
   );
 }
+
+EventMap.propTypes = {
+  filteredEvents: PropTypes.arrayOf(PropTypes.shape({
+    venue: PropTypes.shape({
+      latitude: PropTypes.number.isRequired,
+      longitude: PropTypes.number.isRequired,
+    }).isRequired,
+    name: PropTypes.string,
+    date: PropTypes.string,
+    ages: PropTypes.string,
+    artistList: PropTypes.arrayOf(PropTypes.shape({
+      name: PropTypes.string.isRequired
+    })),
+    link: PropTypes.string
+  })).isRequired,
+  center: PropTypes.shape({
+    lat: PropTypes.number,
+    lon: PropTypes.number
+  })
+};
 
 export default EventMap;

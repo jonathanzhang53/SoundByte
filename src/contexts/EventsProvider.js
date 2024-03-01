@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Event, { Artist, Venue } from '../models/Event';
+import PropTypes from 'prop-types';
 import EventsContext from './EventsContext';
 
 export const EventsProvider = ({ children }) => {
@@ -66,6 +67,10 @@ export const EventsProvider = ({ children }) => {
       {children}
     </EventsContext.Provider>
   );
+};
+
+EventsProvider.propTypes = {
+  children: PropTypes.node.isRequired,
 };
 
 export default EventsProvider;

@@ -1,6 +1,9 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import EventsContext from '../contexts/EventsContext';
 
-function Sidebar({ events }) {
+function Sidebar() {
+  const { events } = useContext(EventsContext);
+
   return (
     <div style={{ width: '95%', backgroundColor: '#FFFFFF', padding: '10px', overflowY: 'scroll' }}>
       {events.map(event => (
