@@ -1,10 +1,13 @@
-import React, { useState } from 'react';
-import 'leaflet/dist/leaflet.css';
+import React, { useState, useContext } from 'react';
+import EventsContext from '../contexts/EventsContext';
 import Searchbar from './Searchbar';
 import EventMap from './EventMap';
 import Sidebar from './Sidebar';
 
-function Home({events}) {
+import 'leaflet/dist/leaflet.css';
+
+function Home() {
+  const { events } = useContext(EventsContext);
   const [searchStart, setStart] = useState('');
   const [searchEnd, setEnd] = useState('');
   const [searchLocation, setLocation] = useState('');

@@ -1,7 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
+import EventsContext from '../contexts/EventsContext';
 import Searchbar from './Searchbar';
 
-function EventsPage({ events }) {
+function EventsPage() {
+  const { events } = useContext(EventsContext);
   const [searchStart, setStart] = useState('');
   const [searchEnd, setEnd] = useState('');
   const [searchLocation, setLocation] = useState('');
