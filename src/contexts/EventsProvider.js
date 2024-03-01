@@ -1,7 +1,8 @@
-import { useState, useEffect } from 'react';
-import Event, {Artist, Venue} from '../models/Event';
+import React, { useState, useEffect } from 'react';
+import Event, { Artist, Venue } from '../models/Event';
+import EventsContext from './EventsContext';
 
-const useFetchEvents = () => {
+export const EventsProvider = ({ children }) => {
   const [events, setEvents] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -25,12 +26,12 @@ const useFetchEvents = () => {
               latitude: eventData.venue.latitude,
               longitude: eventData.venue.longitude
             };
-
+  
             // Preprocess artist list
             const artistListData = eventData.artistList.map(artistData => {
               return new Artist({ name: artistData.name });
             });
-
+  
             return new Event(
               eventData.link,
               eventData.name,
@@ -42,8 +43,8 @@ const useFetchEvents = () => {
               artistListData
             );
           });
-
-          // console.log(transformedEvents);
+          
+          // events have been read and transformed
           setEvents(transformedEvents);
         } else {
           setError('API request failed: ' + data.message);
@@ -58,7 +59,13 @@ const useFetchEvents = () => {
     fetchData();
   }, []);
 
-  return { events, isLoading, error };
+  const value = { events, isLoading, error };
+
+  return (
+    <EventsContext.Provider value={value}>
+      {children}
+    </EventsContext.Provider>
+  );
 };
 
-export default useFetchEvents;
+export default EventsProvider;
