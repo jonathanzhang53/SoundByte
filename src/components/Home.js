@@ -19,7 +19,7 @@ function Home() {
   const first10 = filteredEvents.slice(0, 100);
 
   return (
-    <div style={{ height: '100vh', width: '80vw', display: 'flex', backgroundColor: '#9E6060', paddingTop: '50px' }}>
+    <div style={{ height: '100vh', width: '80vw', display: 'flex', backgroundColor: '#9E6060', paddingTop: '20px' }}>
       {/* Map container */}
       <div style={{ flex: 1 }}>
         <Searchbar
@@ -37,13 +37,15 @@ function Home() {
           <EventMap filteredEvents={first10} center={mapCenter} />
         </div>
       </div>
-
+  
       {/* Sidebar with adjusted width */}
-      <div style={{ width: '20%', backgroundColor: '#FFFFFF', padding: '5px', overflowY: 'auto', zIndex: 2 }}>
-        <Sidebar events={first10} />
-      </div>
+      <div style={{ width: '20%', height: '91%', backgroundColor: '#FFFFFF', padding: '15px', overflowY: 'auto', zIndex: 2, borderRadius: '15px', boxShadow: '0px 0px 10px rgba(0, 0, 0, 0.1)', transition: 'box-shadow 0.3s ease' }}>
+  <Sidebar events={first10} />
+</div>
+
     </div>
   );
+  
 }
 
 
