@@ -70,8 +70,16 @@ function AboutUs() {
     },
   };
 
+  const teamMembers = [
+    { name: 'Jonathan Zhang', role: 'Scrum Master', image: jona },
+    { name: 'Courtney Giang', role: 'Project Manager', image: court },
+    { name: 'Andrew Ruales', role: 'Backend Developer', image: andrew },
+    { name: 'Cameron Ketchem', role: 'Backend Developer', image: cam },
+    { name: 'Hannah Hardy', role: 'Frontend Developer', image: hannah },
+  ];
+
   return (
-    <div style={styles.container}>
+    <div style={styles.container} data-testid="about-us-container">
       <h2 style={styles.heading}>About Us</h2>
       <p>
         Welcome to SoundByte: A visionary initiative by a dedicated team of students from the University of Florida. Recognizing the challenges EDM enthusiasts face in navigating event information, our mission is to transform the EdmTrain website into a dynamic, map-based platform. This innovative approach aims to streamline the discovery process, making it easier for users to find events that resonate with their location and preferences.
@@ -81,26 +89,12 @@ function AboutUs() {
       </p>
       <h3 style={styles.subHeading}>Meet the Developers</h3>
       <div style={styles.teamContainer}>
-        <div style={styles.teamMember}>
-          <img src={jona} alt="Jonathan Zhang" style={styles.teamImage} />
-          <p style={styles.teamName}>Jonathan Zhang<br/>Scrum Master</p>
-        </div>
-        <div style={styles.teamMember}>
-          <img src={court} alt="Courtney Giang" style={styles.teamImage} />
-          <p style={styles.teamName}>Courtney Giang<br/>Project Manager</p>
-        </div>
-        <div style={styles.teamMember}>
-          <img src={andrew} alt="Andrew Ruales" style={styles.teamImage} />
-          <p style={styles.teamName}>Andrew Ruales<br/>Backend Developer</p>
-        </div>
-        <div style={styles.teamMember}>
-          <img src={cam} alt="Cameron Ketchem" style={styles.teamImage} />
-          <p style={styles.teamName}>Cameron Ketchem<br/>Backend Developer</p>
-        </div>
-        <div style={styles.teamMember}>
-          <img src={hannah} alt="Hannah Hardy" style={styles.teamImage} />
-          <p style={styles.teamName}>Hannah Hardy <br/>Frontend Developer</p>
-        </div>
+        {teamMembers.map((member) => (
+          <div style={styles.teamMember} key={member.name} data-testid="team-member">
+            <img src={member.image} alt={member.name} style={styles.teamImage} />
+            <p style={styles.teamName}>{member.name}<br/>{member.role}</p>
+          </div>
+        ))}
       </div>
     </div>
   );

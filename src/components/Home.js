@@ -15,7 +15,8 @@ function Home() {
   const [mapCenter, setMapCenter] = useState(null);
   const [showSidebar, setShowSidebar] = useState(false); // New state for controlling sidebar visibility
 
-  const filteredEvents = filterEvents(events, searchStart, searchEnd, searchLocation)
+  const { filteredEvents, bounds } = filterEvents(events, searchStart, searchEnd, searchLocation)
+  // Cuts off filtered markers at 500
   const first10 = filteredEvents.slice(0, 100);
 
   const handleCitySelection = (location) => {
@@ -39,7 +40,7 @@ function Home() {
         
         {/* EventMap with adjusted width */}
         <div style={{ width: '100%', height: '100%', zIndex: 1 }}>
-          <EventMap filteredEvents={first10} center={mapCenter} />
+          <EventMap filteredEvents={first10} center={mapCenter} bounds={bounds}/>
         </div>
       </div>
 
