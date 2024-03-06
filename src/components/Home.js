@@ -13,10 +13,15 @@ function Home() {
   const [searchEnd, setEnd] = useState('');
   const [searchLocation, setLocation] = useState('');
   const [mapCenter, setMapCenter] = useState(null);
+  const [showSidebar, setShowSidebar] = useState(false); // New state for controlling sidebar visibility
 
   const filteredEvents = filterEvents(events, searchStart, searchEnd, searchLocation)
-  // Cuts off filtered markers at 500
   const first10 = filteredEvents.slice(0, 100);
+
+  const handleCitySelection = (location) => {
+    setLocation(location);
+    setShowSidebar(true); // Show the sidebar when city is selected
+  }
 
   return (
     <div style={{ height: '100vh', width: '80vw', display: 'flex', backgroundColor: '#9E6060', paddingTop: '50px' }}>
@@ -28,7 +33,7 @@ function Home() {
           searchEnd={searchEnd}
           setEndDate={setEnd}
           searchLocation={searchLocation}
-          setSearchLocation={setLocation}
+          setSearchLocation={handleCitySelection} // Pass handleCitySelection to Searchbar
           setMapCenter={setMapCenter}
         />
         
@@ -39,12 +44,13 @@ function Home() {
       </div>
 
       {/* Sidebar with adjusted width */}
-      <div style={{ width: '20%', backgroundColor: '#FFFFFF', padding: '5px', overflowY: 'auto', zIndex: 2 }}>
-        <Sidebar events={first10} />
-      </div>
+      {showSidebar && (
+        <div style={{ width: '20%', backgroundColor: '#FFFFFF', padding: '5px', overflowY: 'auto', zIndex: 2 }}>
+          <Sidebar events={first10} />
+        </div>
+      )}
     </div>
   );
 }
-
 
 export default Home;
