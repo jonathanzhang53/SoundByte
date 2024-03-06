@@ -1,4 +1,53 @@
-import React from 'react';
+// import React from 'react';
+// import DatePicker from 'react-datepicker';
+// import 'react-datepicker/dist/react-datepicker.css';
+// import useFetchCities from '../hooks/useFetchCities';
+
+// function Searchbar({ searchStart,  setStartDate, searchEnd,  setEndDate, searchLocation, setSearchLocation, setMapCenter }) {
+//   const cities = useFetchCities();
+  
+//   return (
+//     <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '10px', width: '65%', zIndex: 1000 , marginLeft: '100px' }}>
+//       {/* Start Date Picker */}
+//       <DatePicker
+//         selected={searchStart}
+//         onChange={date => setStartDate(date)}
+//         dateFormat="yyyy-MM-dd"
+//         placeholderText="Start Date (YYYY-MM-DD)"
+//         style={{ width: '30%', padding: '5px', marginLeft: '10px' }}
+//       />
+
+//       {/* End Date Picker */}
+//       <DatePicker
+//         selected={searchEnd}
+//         onChange={date => setEndDate(date)}
+//         dateFormat="yyyy-MM-dd"
+//         placeholderText="End Date (YYYY-MM-DD)"
+//         style={{ width: '30%', padding: '5px', marginLeft: '10px' }}
+//       />
+
+//       {/* City Picker */}
+//       <select
+//         value={searchLocation}
+//         onChange={e => {
+//           const [name, lat, lon] = e.target.value.split(",");
+//           setSearchLocation(name);
+//           setMapCenter({ lat: parseFloat(lat), lon: parseFloat(lon) });
+//         }}
+//         style={{ width: '30%', height: '40px', padding: '5px'}}
+//       >
+//         <option value="">Select a City</option>
+//         {cities.map((city, index) => (
+//           <option key={index} value={`${city.name},${city.lat},${city.lon}`}>{city.name + ", " + city.country}</option>
+//         ))}
+//       </select>
+//     </div>
+//   );
+// }
+
+// export default Searchbar;
+
+import React, { useState, useEffect, useRef } from 'react';
 import DatePicker from 'react-datepicker';
 import useFetchCities from '../hooks/useFetchCities';
 
@@ -6,11 +55,72 @@ import 'react-datepicker/dist/react-datepicker.css';
 
 function Searchbar({ searchStart,  setStartDate, searchEnd,  setEndDate, searchLocation, setSearchLocation, setMapCenter }) {
   const cities = useFetchCities();
+  const [matchedCities, setMatchedCities] = useState([]);
+  const [showDropdown, setShowDropdown] = useState(false);
+  const [highlightIndex, setHighlightIndex] = useState(-1);
+  const wrapperRef = useRef(null);
+  const itemRefs = useRef([]);
+
+  useEffect(() => {
+    // Create or update refs for each dropdown item
+    itemRefs.current = itemRefs.current.slice(0, matchedCities.length);
+  }, [matchedCities]);
+
+  useEffect(() => {
+    function handleClickOutside(event) {
+      if (wrapperRef.current && !wrapperRef.current.contains(event.target)) {
+        setShowDropdown(false);
+      }
+    }
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, []);
+
+  useEffect(() => {
+    if (!searchLocation) {
+      setMatchedCities([]);
+      setShowDropdown(false);
+      setHighlightIndex(-1);
+      return;
+    }
+
+    const matches = cities.filter(city => city.name.toLowerCase().startsWith(searchLocation.toLowerCase())).slice(0, 10);
+    setMatchedCities(matches);
+    setShowDropdown(true);
+    setHighlightIndex(-1);
+  }, [searchLocation, cities]);
+
+  useEffect(() => {
+    if (highlightIndex >= 0 && highlightIndex < matchedCities.length) {
+      itemRefs.current[highlightIndex]?.scrollIntoView({
+        behavior: "smooth",
+        block: "nearest"
+      });
+    }
+  }, [highlightIndex, matchedCities.length]);
   
+
+  const handleKeyDown = (e) => {
+    if (e.key === "ArrowDown") {
+      e.preventDefault();
+      setHighlightIndex(prevIndex => Math.min(prevIndex + 1, matchedCities.length - 1));
+    } else if (e.key === "ArrowUp") {
+      e.preventDefault();
+      setHighlightIndex(prevIndex => Math.max(prevIndex - 1, 0));
+    } else if (e.key === "Enter" && highlightIndex >= 0) {
+      e.preventDefault();
+      const selectedCity = matchedCities[highlightIndex];
+      setSearchLocation(selectedCity.name);
+      setMapCenter({ lat: selectedCity.lat, lon: selectedCity.lon });
+      setShowDropdown(false);
+    }
+  };
+
   return (
-    <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '10px', width: '65%', zIndex: 1000 , marginLeft: '100px' }}>
-      {/* Start Date Picker */}
-      <DatePicker
+    <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '10px', width: '65%', zIndex: 1000, marginLeft: '100px' }} ref={wrapperRef}>
+       {/* Start Date Picker */}
+       <DatePicker
         selected={searchStart}
         onChange={date => setStartDate(date)}
         dateFormat="yyyy-MM-dd"
@@ -27,21 +137,45 @@ function Searchbar({ searchStart,  setStartDate, searchEnd,  setEndDate, searchL
         style={{ width: '30%', padding: '5px', marginLeft: '10px' }}
       />
 
-      {/* City Picker */}
-      <select
-        value={searchLocation}
-        onChange={e => {
-          const [name, lat, lon] = e.target.value.split(",");
-          setSearchLocation(name);
-          setMapCenter({ lat: parseFloat(lat), lon: parseFloat(lon) });
-        }}
-        style={{ width: '30%', height: '40px', padding: '5px'}}
-      >
-        <option value="">Select a City</option>
-        {cities.map((city, index) => (
-          <option key={index} value={`${city.name},${city.lat},${city.lon}`}>{city.name + ", " + city.country}</option>
-        ))}
-      </select>
+      {/* City Search and Select Input */}
+      <div style={{ position: 'relative', width: '30%' }}>
+        <input
+          type="text"
+          placeholder="Search a city"
+          value={searchLocation}
+          onChange={(e) => {
+            setSearchLocation(e.target.value);
+            setShowDropdown(true);
+          }}
+          onFocus={() => setShowDropdown(true)}
+          onKeyDown={handleKeyDown}
+          style={{ width: '100%', padding: '5px', marginBottom: '0' }}
+        />
+        {showDropdown && (
+          <ul style={{ listStyleType: 'none', padding: 0, margin: 0, position: 'absolute', width: '100%', maxHeight: '200px', overflowY: 'auto', backgroundColor: 'white', border: '1px solid #ccc', borderTop: 'none', zIndex: 1001 }}>
+            {matchedCities.length > 0 ? matchedCities.map((city, index) => {
+              // Assign ref to each item
+              const setRef = el => itemRefs.current[index] = el;
+
+              return (
+                <li
+                  key={index}
+                  ref={setRef}
+                  onMouseOver={() => setHighlightIndex(index)}
+                  onClick={() => {
+                    setSearchLocation(city.name);
+                    setMapCenter({ lat: city.lat, lon: city.lon });
+                    setShowDropdown(false);
+                  }}
+                  style={{ padding: '10px', cursor: 'pointer', backgroundColor: index === highlightIndex ? '#f0f0f0' : 'transparent' }}
+                >
+                  {city.name + ", " + city.country}
+                </li>
+              );
+            }) : <li style={{ padding: '10px' }}>No matches found</li>}
+          </ul>
+        )}
+      </div>
     </div>
   );
 }
