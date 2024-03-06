@@ -1,7 +1,8 @@
 {
     "env": {
         "browser": true,
-        "es2021": true
+        "es2021": true,
+        "node": true
     },
     "globals": {
         "process": "readonly"
@@ -25,5 +26,13 @@
     ],
     "rules": {
         "react/prop-types": "off"
-    }
+    },
+    "overrides": [
+        {
+            "files": ["**/*.test.js", "**/*.spec.js"],
+            "env": {
+                "jest": true
+            }
+        }
+    ]
 }
