@@ -131,7 +131,7 @@ function Searchbar({ searchStart, setStartDate, searchEnd, setEndDate, searchLoc
         )}
       </div>
 
-      {/* Check Sidebar if showSidebar is true */}
+      {/* Check Sidebar if ShowSidebar is true */}
       {showSidebar && <Sidebar />}
     </div>
   );
