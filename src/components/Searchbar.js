@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import DatePicker from 'react-datepicker';
 import useFetchCities from '../hooks/useFetchCities';
 
@@ -46,15 +45,5 @@ function Searchbar({ searchStart,  setStartDate, searchEnd,  setEndDate, searchL
     </div>
   );
 }
-
-Searchbar.propTypes = {
-  searchStart: PropTypes.instanceOf(Date),
-  setStartDate: PropTypes.func.isRequired,
-  searchEnd: PropTypes.instanceOf(Date),
-  setEndDate: PropTypes.func.isRequired,
-  searchLocation: PropTypes.string.isRequired,
-  setSearchLocation: PropTypes.func.isRequired,
-  setMapCenter: PropTypes.func.isRequired,
-};
 
 export default Searchbar;

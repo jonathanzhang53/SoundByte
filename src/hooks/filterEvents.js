@@ -1,6 +1,4 @@
-
-const filterEvents = (events, searchStart, searchEnd, searchLocation)  => {
-
+const filterEvents = (events, searchStart, searchEnd, searchLocation) => {
   const startDate = new Date(searchStart);
   startDate.setUTCHours(0, 0, 0, 0);
   const endDate = new Date(searchEnd);
@@ -16,8 +14,12 @@ const filterEvents = (events, searchStart, searchEnd, searchLocation)  => {
                        (!searchStart && eventDate <= endDate);
     const matchLocation = !searchLocation || event.venue.location.toLowerCase().startsWith(searchLocation.toLowerCase());
     return matchDates && matchLocation;
-  });
-    return filteredEvents || null;
-  };
+  }).map(event => ({
+    ...event,
+    formattedDate: new Date(event.date).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })
+  }));
   
-  export default filterEvents;
+  return filteredEvents || null;
+};
+
+export default filterEvents;
