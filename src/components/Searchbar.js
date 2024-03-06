@@ -14,14 +14,6 @@ function Searchbar({ searchStart, setStartDate, searchEnd, setEndDate, searchLoc
   const wrapperRef = useRef(null);
   const itemRefs = useRef([]);
 
-  // Function to handle city selection
-  const handleCitySelection = (e) => {
-    const [name, lat, lon] = e.target.value.split(",");
-    setSearchLocation(name);
-    setMapCenter({ lat: parseFloat(lat), lon: parseFloat(lon) });
-    setShowSidebar(true); // Show the sidebar when city is selected
-  }
-
   useEffect(() => {
     // Create or update refs for each dropdown item
     itemRefs.current = itemRefs.current.slice(0, matchedCities.length);
@@ -43,6 +35,7 @@ function Searchbar({ searchStart, setStartDate, searchEnd, setEndDate, searchLoc
       setMatchedCities([]);
       setShowDropdown(false);
       setHighlightIndex(-1);
+      setShowSidebar(false); // Hide the sidebar when search location is cleared
       return;
     }
 
@@ -50,6 +43,7 @@ function Searchbar({ searchStart, setStartDate, searchEnd, setEndDate, searchLoc
     setMatchedCities(matches);
     setShowDropdown(true);
     setHighlightIndex(-1);
+    setShowSidebar(true); // Show the sidebar when a search location is entered
   }, [searchLocation, cities]);
 
   useEffect(() => {
@@ -60,7 +54,6 @@ function Searchbar({ searchStart, setStartDate, searchEnd, setEndDate, searchLoc
       });
     }
   }, [highlightIndex, matchedCities.length]);
-  
 
   const handleKeyDown = (e) => {
     if (e.key === "ArrowDown") {
@@ -133,12 +126,12 @@ function Searchbar({ searchStart, setStartDate, searchEnd, setEndDate, searchLoc
                   {city.name + ", " + city.country}
                 </li>
               );
-            }) : <li style={{ padding: '10px' }}>No matches found</li>}
+            }) : null}
           </ul>
         )}
       </div>
 
-      {/* Render Sidebar if showSidebar is true */}
+      {/* Check Sidebar if ShowSidebar is true */}
       {showSidebar && <Sidebar />}
     </div>
   );
