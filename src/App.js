@@ -1,12 +1,11 @@
+import React from 'react';
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
+import { EventsProvider } from './contexts/EventsProvider';
 import EventsPage from './components/EventsPage';
-import Home from './components/Home'
-import AboutUs from './components/AboutUs'
-import useFetchEvents from './hooks/useFetchEvents';
+import Home from './components/Home';
+import AboutUs from './components/AboutUs';
 
 function App() {
-  const { events } = useFetchEvents();
-
   return (
     <Router>
       <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
@@ -25,11 +24,13 @@ function App() {
           </ul>
         </nav>
 
-        <Routes>
-          <Route path="/" element={<Home events={events}/>} />
-          <Route path="/events" element={<EventsPage events={events} />} />
-          <Route path="/about" element={<AboutUs/>} />
-        </Routes>
+        <EventsProvider>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/events" element={<EventsPage />} />
+            <Route path="/about" element={<AboutUs/>} />
+          </Routes>
+        </EventsProvider>
       </div>
     </Router>
   );

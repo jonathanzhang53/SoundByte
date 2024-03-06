@@ -49,10 +49,11 @@
 
 import React, { useState, useEffect, useRef } from 'react';
 import DatePicker from 'react-datepicker';
-import 'react-datepicker/dist/react-datepicker.css';
 import useFetchCities from '../hooks/useFetchCities';
 
-function Searchbar({ searchStart, setStartDate, searchEnd, setEndDate, searchLocation, setSearchLocation, setMapCenter }) {
+import 'react-datepicker/dist/react-datepicker.css';
+
+function Searchbar({ searchStart,  setStartDate, searchEnd,  setEndDate, searchLocation, setSearchLocation, setMapCenter }) {
   const cities = useFetchCities();
   const [matchedCities, setMatchedCities] = useState([]);
   const [showDropdown, setShowDropdown] = useState(false);

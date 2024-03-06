@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { MapContainer, TileLayer, Marker, Popup, useMap } from 'react-leaflet';
 import mapMarkerSvg from '../assets/map_marker.svg';
+
 import L from 'leaflet';
 
 function MapCenterUpdater({ center }) {
@@ -60,7 +61,7 @@ function EventMap({ filteredEvents, center }) {
           {event.name ? (
             <>
               <div>
-                <strong>{event.name}</strong> is happening at <strong>{event.venue.name}</strong> on <strong>{event.date}</strong>.
+                <strong>{event.name}</strong> is happening at <strong>{event.venue.name}</strong> on <strong>{event.formattedDate}</strong>.
                 {event.ages && ` ${event.ages}`}
               </div>
               {event.artistList.length > 0 && (
@@ -81,7 +82,7 @@ function EventMap({ filteredEvents, center }) {
             event.artistList.length > 0 ? (
               <>
                 <div>
-                  <strong>{event.artistList[0].name}</strong> is playing at <strong>{event.venue.name}</strong> on <strong>{event.date}</strong>.
+                  <strong>{event.artistList[0].name}</strong> is playing at <strong>{event.venue.name}</strong> on <strong>{event.formattedDate}</strong>.
                   {event.ages && ` ${event.ages}`}
                 </div>
                 {event.artistList.length > 1 && (
@@ -96,7 +97,7 @@ function EventMap({ filteredEvents, center }) {
                 )}
               </>
             ) : 
-            <div>Unknown event happening at <strong>{event.venue.name}</strong> on <strong>{event.date}</strong>.</div>
+            <div>Unknown event happening at <strong>{event.venue.name}</strong> on <strong>{event.formattedDate}</strong>.</div>
           )
           }
           <div>Learn more <a href={event.link} target="_blank" rel="noopener noreferrer">here</a>.</div>

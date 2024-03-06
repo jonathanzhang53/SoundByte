@@ -1,27 +1,16 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
+import EventsContext from '../contexts/EventsContext';
+import filterEvents from '../hooks/filterEvents';
 import Searchbar from './Searchbar';
 
-function EventsPage({ events }) {
+function EventsPage() {
+  const { events } = useContext(EventsContext);
   const [searchStart, setStart] = useState('');
   const [searchEnd, setEnd] = useState('');
   const [searchLocation, setLocation] = useState('');
   const [setMapCenter] = useState(null);
 
-  const startDate = new Date(searchStart);
-  startDate.setUTCHours(0, 0, 0, 0); 
-  const endDate = new Date(searchEnd);
-  endDate.setUTCHours(0, 0, 0, 0); 
-
-  const filteredEvents = events.filter(event => {
-    const eventDate = new Date(event.date);
-    eventDate.setUTCHours(0, 0, 0, 0); 
-    const matchDates = (!searchStart && !searchEnd) || 
-                       (eventDate >= startDate && eventDate <= endDate) || 
-                       (eventDate >= startDate && !searchEnd) || 
-                       (!searchStart && eventDate <= endDate);
-    const matchLocation = !searchLocation || event.venue.location.toLowerCase().startsWith(searchLocation.toLowerCase());
-    return matchDates && matchLocation;
-  });
+  const filteredEvents = filterEvents(events, searchStart, searchEnd, searchLocation)
 
   return (
     <>
@@ -37,9 +26,11 @@ function EventsPage({ events }) {
       
       <ul>
         {filteredEvents.map((event) => (
-          <li key={event.id}>
+          <li 
+          key={`${event.name}-${event.formattedDate}-${event.venue.name}-${event.artistList.map(artist => artist.name).join('-')}`} 
+          >
             <strong>{event.name || 'Unnamed Event'}</strong>
-            <p>Date: {event.date}</p>
+            <p>Date: {event.formattedDate}</p>
             <p>Venue: {event.venue.name} - {event.venue.location}</p>
             <p>Artists: {event.artistList.map((artist) => artist.name).join(', ')}</p>
             <a href={event.link}>More Info</a>

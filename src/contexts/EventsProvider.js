@@ -1,7 +1,8 @@
-import { useState, useEffect } from 'react';
-import Event, {Artist, Venue} from '../models/Event';
+import React, { useState, useEffect } from 'react';
+import Event, { Artist, Venue } from '../models/Event';
+import EventsContext from './EventsContext';
 
-const useFetchEvents = () => {
+export const EventsProvider = ({ children }) => {
   const [events, setEvents] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -15,7 +16,9 @@ const useFetchEvents = () => {
         const response = await fetch(`${API_URL}?client=${API_KEY}`);
         const data = await response.json();
         if (data.success) {
-          const transformedEvents = data.data.map(eventData => {
+          const transformedEvents = data.data
+          .filter(eventData => eventData.venue.latitude != null && eventData.venue.longitude != null)
+          .map(eventData => {
             // Preprocess venue data
             const venueData = {
               name: eventData.venue.name,
@@ -25,25 +28,25 @@ const useFetchEvents = () => {
               latitude: eventData.venue.latitude,
               longitude: eventData.venue.longitude
             };
-
+  
             // Preprocess artist list
             const artistListData = eventData.artistList.map(artistData => {
               return new Artist({ name: artistData.name });
             });
-
+  
             return new Event(
               eventData.link,
               eventData.name,
               eventData.ages,
-              eventData.date,
+              new Date(eventData.date),
               eventData.startTime,
               eventData.endTime,
               new Venue(venueData),
               artistListData
             );
           });
-
-          // console.log(transformedEvents);
+          
+          // events have been read and transformed
           setEvents(transformedEvents);
         } else {
           setError('API request failed: ' + data.message);
@@ -58,7 +61,13 @@ const useFetchEvents = () => {
     fetchData();
   }, []);
 
-  return { events, isLoading, error };
+  const value = { events, isLoading, error };
+
+  return (
+    <EventsContext.Provider value={value}>
+      {children}
+    </EventsContext.Provider>
+  );
 };
 
-export default useFetchEvents;
+export default EventsProvider;
