@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import { MapContainer, TileLayer, Marker, Popup, useMap } from 'react-leaflet';
-import PropTypes from 'prop-types';
 import mapMarkerSvg from '../assets/map_marker.svg';
 
 import L from 'leaflet';
@@ -15,13 +14,6 @@ function MapCenterUpdater({ center }) {
 
   return null;
 }
-
-MapCenterUpdater.propTypes = {
-  center: PropTypes.shape({
-    lat: PropTypes.number.isRequired,
-    lon: PropTypes.number.isRequired,
-  }).isRequired,
-};
 
 function EventMap({ filteredEvents, center }) {
   const [currentPosition, setCurrentPosition] = useState([29.6520, -82.3250]);  // Default to Gainesville, FL
@@ -69,7 +61,7 @@ function EventMap({ filteredEvents, center }) {
           {event.name ? (
             <>
               <div>
-                <strong>{event.name}</strong> is happening at <strong>{event.venue.name}</strong> on <strong>{event.date}</strong>.
+                <strong>{event.name}</strong> is happening at <strong>{event.venue.name}</strong> on <strong>{event.formattedDate}</strong>.
                 {event.ages && ` ${event.ages}`}
               </div>
               {event.artistList.length > 0 && (
@@ -90,7 +82,7 @@ function EventMap({ filteredEvents, center }) {
             event.artistList.length > 0 ? (
               <>
                 <div>
-                  <strong>{event.artistList[0].name}</strong> is playing at <strong>{event.venue.name}</strong> on <strong>{event.date}</strong>.
+                  <strong>{event.artistList[0].name}</strong> is playing at <strong>{event.venue.name}</strong> on <strong>{event.formattedDate}</strong>.
                   {event.ages && ` ${event.ages}`}
                 </div>
                 {event.artistList.length > 1 && (
@@ -105,7 +97,7 @@ function EventMap({ filteredEvents, center }) {
                 )}
               </>
             ) : 
-            <div>Unknown event happening at <strong>{event.venue.name}</strong> on <strong>{event.date}</strong>.</div>
+            <div>Unknown event happening at <strong>{event.venue.name}</strong> on <strong>{event.formattedDate}</strong>.</div>
           )
           }
           <div>Learn more <a href={event.link} target="_blank" rel="noopener noreferrer">here</a>.</div>
@@ -117,25 +109,5 @@ function EventMap({ filteredEvents, center }) {
     </MapContainer>
   );
 }
-
-EventMap.propTypes = {
-  filteredEvents: PropTypes.arrayOf(PropTypes.shape({
-    venue: PropTypes.shape({
-      latitude: PropTypes.number.isRequired,
-      longitude: PropTypes.number.isRequired,
-    }).isRequired,
-    name: PropTypes.string,
-    date: PropTypes.string,
-    ages: PropTypes.string,
-    artistList: PropTypes.arrayOf(PropTypes.shape({
-      name: PropTypes.string.isRequired
-    })),
-    link: PropTypes.string
-  })).isRequired,
-  center: PropTypes.shape({
-    lat: PropTypes.number,
-    lon: PropTypes.number
-  })
-};
 
 export default EventMap;

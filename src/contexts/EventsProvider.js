@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import Event, { Artist, Venue } from '../models/Event';
-import PropTypes from 'prop-types';
 import EventsContext from './EventsContext';
 
 export const EventsProvider = ({ children }) => {
@@ -17,7 +16,9 @@ export const EventsProvider = ({ children }) => {
         const response = await fetch(`${API_URL}?client=${API_KEY}`);
         const data = await response.json();
         if (data.success) {
-          const transformedEvents = data.data.map(eventData => {
+          const transformedEvents = data.data
+          .filter(eventData => eventData.venue.latitude != null && eventData.venue.longitude != null)
+          .map(eventData => {
             // Preprocess venue data
             const venueData = {
               name: eventData.venue.name,
@@ -37,7 +38,7 @@ export const EventsProvider = ({ children }) => {
               eventData.link,
               eventData.name,
               eventData.ages,
-              eventData.date,
+              new Date(eventData.date),
               eventData.startTime,
               eventData.endTime,
               new Venue(venueData),
@@ -67,10 +68,6 @@ export const EventsProvider = ({ children }) => {
       {children}
     </EventsContext.Provider>
   );
-};
-
-EventsProvider.propTypes = {
-  children: PropTypes.node.isRequired,
 };
 
 export default EventsProvider;
