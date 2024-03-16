@@ -1,13 +1,13 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useContext } from 'react';
 import DatePicker from 'react-datepicker';
-import useFetchCities from '../hooks/useFetchCities';
-import Sidebar from './Sidebar'; // Import Sidebar component
+import CitiesContext from '../contexts/CitiesContext';
+import Sidebar from './Sidebar';
 
 import 'react-datepicker/dist/react-datepicker.css';
 
 function Searchbar({ searchStart, setStartDate, searchEnd, setEndDate, searchLocation, setSearchLocation, setMapCenter }) {
-  const cities = useFetchCities();
-  const [showSidebar, setShowSidebar] = useState(false); // State to manage sidebar visibility
+  const cities = useContext(CitiesContext);
+  const [showSidebar, setShowSidebar] = useState(false);
   const [matchedCities, setMatchedCities] = useState([]);
   const [showDropdown, setShowDropdown] = useState(false);
   const [highlightIndex, setHighlightIndex] = useState(-1);
