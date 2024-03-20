@@ -4,14 +4,15 @@ import { Link } from 'react-router-dom';
 const linkStyle = {
   textDecoration: 'none',
   padding: '10px 50px',
-  border: '1px solid #ccc',
+  border: 'none',
   borderRadius: '5px',
-  color: '#000',
-  backgroundColor: '#9E6060',
-  boxShadow: '2px 2px 5px rgba(0,0,0,0.1)',
+  color: '#fff',
+  backgroundColor: '#03ddff',
+  boxShadow: '0 0 1px #03ddff, 0 0 1px #03ddff, 0 0 1px #03ddff, 0 0 5px #03ddff, 0 0 5px #03ddff, 0 0 40px #03ddff, 0 0 5px #03ddff, 0 0 15px #03ddff',
+  animation: 'flicker 1.5s infinite alternate',
   transition: 'all 0.3s ease',
   cursor: 'pointer',
-};
+}
 
 function NavBar() {
   return (
