@@ -19,7 +19,7 @@ function Home() {
   const first10 = filteredEvents.slice(0, 100);
 
   return (
-    <div style={{ height: '100vh', width: '80vw', display: 'flex', backgroundColor: '#9E6060', paddingTop: '20px' }}>
+    <div style={{ height: '100vh', width: '100vw', display: 'flex', backgroundColor: '#9E6060', paddingTop: '20px' }}>
       {/* Map container */}
       <div style={{ flex: 1 }}>
         <Searchbar

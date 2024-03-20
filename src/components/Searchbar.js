@@ -118,7 +118,7 @@ function Searchbar({ searchStart,  setStartDate, searchEnd,  setEndDate, searchL
   };
 
   return (
-    <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '10px', width: '65%', zIndex: 1000, marginLeft: '100px' }} ref={wrapperRef}>
+    <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '30px', width: '65%', zIndex: 1000, marginLeft: '100px' }} ref={wrapperRef}>
        {/* Start Date Picker */}
        <DatePicker
         selected={searchStart}
