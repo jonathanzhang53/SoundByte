@@ -1,7 +1,7 @@
 import React from 'react';
 import '@testing-library/jest-dom';
 import { render, screen } from '@testing-library/react';
-import AboutUs from './AboutUs';
+import AboutUs from '../../src/components/AboutUs';
 
 describe('AboutUs Component', () => {
   beforeEach(() => {
