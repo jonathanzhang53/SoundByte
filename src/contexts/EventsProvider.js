@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import EventsContext from './EventsContext';
-import { transformEventData } from '../assets/transformEventData';
+import { transformEvents } from '../assets/transformEvents';
 
 export const EventsProvider = ({ children }) => {
   const [events, setEvents] = useState([]);
@@ -16,7 +16,7 @@ export const EventsProvider = ({ children }) => {
         const response = await fetch(`${API_URL}?client=${API_KEY}`);
         const data = await response.json();
         if (data.success) {
-          const transformedEvents = transformEventData(data.data);
+          const transformedEvents = transformEvents(data.data);
           setEvents(transformedEvents);
         } else {
           setError('API request failed: ' + data.message);
