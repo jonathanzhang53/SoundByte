@@ -1,60 +1,13 @@
-// import React from 'react';
-// import DatePicker from 'react-datepicker';
-// import 'react-datepicker/dist/react-datepicker.css';
-// import useFetchCities from '../hooks/useFetchCities';
-
-// function Searchbar({ searchStart,  setStartDate, searchEnd,  setEndDate, searchLocation, setSearchLocation, setMapCenter }) {
-//   const cities = useFetchCities();
-  
-//   return (
-//     <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '10px', width: '65%', zIndex: 1000 , marginLeft: '100px' }}>
-//       {/* Start Date Picker */}
-//       <DatePicker
-//         selected={searchStart}
-//         onChange={date => setStartDate(date)}
-//         dateFormat="yyyy-MM-dd"
-//         placeholderText="Start Date (YYYY-MM-DD)"
-//         style={{ width: '30%', padding: '5px', marginLeft: '10px' }}
-//       />
-
-//       {/* End Date Picker */}
-//       <DatePicker
-//         selected={searchEnd}
-//         onChange={date => setEndDate(date)}
-//         dateFormat="yyyy-MM-dd"
-//         placeholderText="End Date (YYYY-MM-DD)"
-//         style={{ width: '30%', padding: '5px', marginLeft: '10px' }}
-//       />
-
-//       {/* City Picker */}
-//       <select
-//         value={searchLocation}
-//         onChange={e => {
-//           const [name, lat, lon] = e.target.value.split(",");
-//           setSearchLocation(name);
-//           setMapCenter({ lat: parseFloat(lat), lon: parseFloat(lon) });
-//         }}
-//         style={{ width: '30%', height: '40px', padding: '5px'}}
-//       >
-//         <option value="">Select a City</option>
-//         {cities.map((city, index) => (
-//           <option key={index} value={`${city.name},${city.lat},${city.lon}`}>{city.name + ", " + city.country}</option>
-//         ))}
-//       </select>
-//     </div>
-//   );
-// }
-
-// export default Searchbar;
-
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useContext } from 'react';
 import DatePicker from 'react-datepicker';
-import useFetchCities from '../hooks/useFetchCities';
+import CitiesContext from '../contexts/CitiesContext';
+import Sidebar from './Sidebar';
 
 import 'react-datepicker/dist/react-datepicker.css';
 
-function Searchbar({ searchStart,  setStartDate, searchEnd,  setEndDate, searchLocation, setSearchLocation, setMapCenter }) {
-  const cities = useFetchCities();
+function Searchbar({ searchStart, setStartDate, searchEnd, setEndDate, searchLocation, setSearchLocation, setMapCenter }) {
+  const cities = useContext(CitiesContext);
+  const [showSidebar, setShowSidebar] = useState(false);
   const [matchedCities, setMatchedCities] = useState([]);
   const [showDropdown, setShowDropdown] = useState(false);
   const [highlightIndex, setHighlightIndex] = useState(-1);
@@ -82,6 +35,7 @@ function Searchbar({ searchStart,  setStartDate, searchEnd,  setEndDate, searchL
       setMatchedCities([]);
       setShowDropdown(false);
       setHighlightIndex(-1);
+      setShowSidebar(false); // Hide the sidebar when search location is cleared
       return;
     }
 
@@ -89,6 +43,7 @@ function Searchbar({ searchStart,  setStartDate, searchEnd,  setEndDate, searchL
     setMatchedCities(matches);
     setShowDropdown(true);
     setHighlightIndex(-1);
+    setShowSidebar(true); // Show the sidebar when a search location is entered
   }, [searchLocation, cities]);
 
   useEffect(() => {
@@ -99,7 +54,6 @@ function Searchbar({ searchStart,  setStartDate, searchEnd,  setEndDate, searchL
       });
     }
   }, [highlightIndex, matchedCities.length]);
-  
 
   const handleKeyDown = (e) => {
     if (e.key === "ArrowDown") {
@@ -118,9 +72,15 @@ function Searchbar({ searchStart,  setStartDate, searchEnd,  setEndDate, searchL
   };
 
   return (
+<<<<<<< HEAD
     <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '30px', width: '65%', zIndex: 1000, marginLeft: '100px' }} ref={wrapperRef}>
        {/* Start Date Picker */}
        <DatePicker
+=======
+    <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '10px', width: '65%', zIndex: 1000, marginLeft: '100px' }} ref={wrapperRef}>
+      {/* Start Date Picker */}
+      <DatePicker
+>>>>>>> origin/main
         selected={searchStart}
         onChange={date => setStartDate(date)}
         dateFormat="yyyy-MM-dd"
@@ -172,10 +132,13 @@ function Searchbar({ searchStart,  setStartDate, searchEnd,  setEndDate, searchL
                   {city.name + ", " + city.country}
                 </li>
               );
-            }) : <li style={{ padding: '10px' }}>No matches found</li>}
+            }) : null}
           </ul>
         )}
       </div>
+
+      {/* Check Sidebar if ShowSidebar is true */}
+      {showSidebar && <Sidebar />}
     </div>
   );
 }

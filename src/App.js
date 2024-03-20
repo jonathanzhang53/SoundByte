@@ -1,6 +1,7 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 import { EventsProvider } from './contexts/EventsProvider';
+import { CitiesProvider } from './contexts/CitiesProvider';
 import EventsPage from './components/EventsPage';
 import Home from './components/Home';
 import AboutUs from './components/AboutUs';
@@ -24,13 +25,15 @@ function App() {
           </ul>
         </nav>
 
-        <EventsProvider>
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/events" element={<EventsPage />} />
-            <Route path="/about" element={<AboutUs/>} />
-          </Routes>
-        </EventsProvider>
+        <CitiesProvider>
+          <EventsProvider>
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/events" element={<EventsPage />} />
+              <Route path="/about" element={<AboutUs />} />
+            </Routes>
+          </EventsProvider>
+        </CitiesProvider>
       </div>
     </Router>
   );
