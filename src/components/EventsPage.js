@@ -10,7 +10,7 @@ function EventsPage() {
   const [searchLocation, setLocation] = useState('');
   const [setMapCenter] = useState(null);
 
-  const filteredEvents = filterEvents(events, searchStart, searchEnd, searchLocation)
+  const {filteredEvents} = filterEvents(events, searchStart, searchEnd, searchLocation)
 
   return (
     <>

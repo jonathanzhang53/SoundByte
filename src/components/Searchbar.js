@@ -72,14 +72,14 @@ function Searchbar({ searchStart, setStartDate, searchEnd, setEndDate, searchLoc
   };
 
   return (
-    <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '10px', width: '65%', zIndex: 1000, marginLeft: '100px' }} ref={wrapperRef}>
+    <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '10px', width: '65%', zIndex: 1000, marginLeft: '100px', position: 'absolute' }} ref={wrapperRef}>
       {/* Start Date Picker */}
       <DatePicker
         selected={searchStart}
         onChange={date => setStartDate(date)}
         dateFormat="yyyy-MM-dd"
         placeholderText="Start Date (YYYY-MM-DD)"
-        style={{ width: '30%', padding: '5px', marginLeft: '10px' }}
+        style={{ width: '30%', padding: '5px', marginLeft: '10px' , marginBottom: '10px'}}
       />
 
       {/* End Date Picker */}
