@@ -16,7 +16,7 @@ function EventMap({ filteredEvents, center, bounds }) {
   }, [center, setCurrentPosition]);
 
   return (
-    <MapContainer center={currentPosition} zoom={13} maxBounds={[[90, -180], [-90, 180]]} style={{ height: 'calc(100vh - 100px)', width: '100%' }}>
+    <MapContainer center={currentPosition} minZoom={2} zoom={13} maxBounds={[[90, -180], [-90, 180]]} style={{ height: 'calc(100vh - 100px)', width: '100%' }}>
       <TileLayer
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
