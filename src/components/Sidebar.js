@@ -1,6 +1,9 @@
 import React from 'react';
 
 function Sidebar({ events }) {
+  if (!events || events.length === 0) {
+    return null;
+  }
   return (
     <div style={{ width: '95%', backgroundColor: '#FFFFFF', padding: '10px', overflowY: 'scroll' }}>
       {events && events.length > 0 ? (
@@ -17,7 +20,7 @@ function Sidebar({ events }) {
           </div>
         ))
       ) : (
-        <p>No events found</p>
+        <p>No events found.</p>
       )}
     </div>
   );
