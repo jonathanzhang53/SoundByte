@@ -2,6 +2,9 @@ import React from 'react';
 import './sidebar.css'; // Import the sidebar.css file
 
 function Sidebar({ events }) {
+  if (!events || events.length === 0) {
+    return null;
+  }
   return (
     <div className="sidebar-container">
       {events && events.length > 0 ? (
@@ -18,7 +21,7 @@ function Sidebar({ events }) {
           </div>
         ))
       ) : (
-        <p>No events found</p>
+        <p>No events found.</p>
       )}
     </div>
   );

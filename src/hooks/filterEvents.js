@@ -1,17 +1,20 @@
+
 const filterEvents = (events, searchStart, searchEnd, searchLocation) => {
   const startDate = new Date(searchStart);
-  startDate.setUTCHours(0, 0, 0, 0);
+  startDate.setUTCHours(5, 0, 0, 1);
   const endDate = new Date(searchEnd);
-  endDate.setUTCHours(0, 0, 0, 0);
+  endDate.setUTCHours(24, 59, 59, 999);
 
   // Filter events based on search criteria
   const filteredEvents = events.filter(event => {
     const eventDate = new Date(event.date);
-    eventDate.setUTCHours(0, 0, 0, 0);
     const matchDates = (!searchStart && !searchEnd) || 
-                       (eventDate >= startDate && eventDate <= endDate) || 
-                       (eventDate >= startDate && !searchEnd) || 
+                       (eventDate > startDate && eventDate <= endDate) || 
+                       (eventDate > startDate && !searchEnd) || 
                        (!searchStart && eventDate <= endDate);
+    if(matchDates){
+      console.log(eventDate);
+    }
     const matchLocation = !searchLocation || event.venue.location.toLowerCase().startsWith(searchLocation.toLowerCase());
     return matchDates && matchLocation;
   }).map(event => ({
