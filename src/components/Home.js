@@ -1,5 +1,3 @@
-// Home.js
-
 import React, { useState, useContext } from 'react';
 import EventsContext from '../contexts/EventsContext';
 import filterEvents from '../hooks/filterEvents';
