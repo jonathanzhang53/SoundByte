@@ -31,7 +31,6 @@ function Home() {
           setStartDate={setStart}
           searchEnd={searchEnd}
           setEndDate={setEnd}
-          searchLocation={searchLocation}
           setSearchLocation={handleCitySelection}
           setMapCenter={setMapCenter}
         />

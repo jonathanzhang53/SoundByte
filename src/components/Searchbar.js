@@ -5,12 +5,13 @@ import Sidebar from './Sidebar';
 
 import 'react-datepicker/dist/react-datepicker.css';
 
-function Searchbar({ searchStart, setStartDate, searchEnd, setEndDate, searchLocation, setSearchLocation, setMapCenter }) {
+function Searchbar({ searchStart, setStartDate, searchEnd, setEndDate, setSearchLocation, setMapCenter }) {
   const cities = useContext(CitiesContext);
   const [showSidebar, setShowSidebar] = useState(false);
   const [matchedCities, setMatchedCities] = useState([]);
   const [showDropdown, setShowDropdown] = useState(false);
   const [highlightIndex, setHighlightIndex] = useState(-1);
+  const [inputValue, setInputValue] = useState('');
   const wrapperRef = useRef(null);
   const itemRefs = useRef([]);
 
@@ -31,7 +32,7 @@ function Searchbar({ searchStart, setStartDate, searchEnd, setEndDate, searchLoc
   }, []);
 
   useEffect(() => {
-    if (!searchLocation) {
+    if (!inputValue) {
       setMatchedCities([]);
       setShowDropdown(false);
       setHighlightIndex(-1);
@@ -39,12 +40,12 @@ function Searchbar({ searchStart, setStartDate, searchEnd, setEndDate, searchLoc
       return;
     }
 
-    const matches = cities.filter(city => city.name.toLowerCase().startsWith(searchLocation.toLowerCase())).slice(0, 10);
+    const matches = cities.filter(city => city.name.toLowerCase().startsWith(inputValue.toLowerCase())).slice(0, 10);
     setMatchedCities(matches);
     setShowDropdown(true);
     setHighlightIndex(-1);
     setShowSidebar(true); // Show the sidebar when a search location is entered
-  }, [searchLocation, cities]);
+  }, [inputValue, cities]);
 
   useEffect(() => {
     if (highlightIndex >= 0 && highlightIndex < matchedCities.length) {
@@ -69,6 +70,13 @@ function Searchbar({ searchStart, setStartDate, searchEnd, setEndDate, searchLoc
       setMapCenter({ lat: selectedCity.lat, lon: selectedCity.lon });
       setShowDropdown(false);
     }
+  };
+
+  const handleSelectCity = (city) => {
+    setSearchLocation(city.name); // Update searchLocation with the selected city's name
+    setMapCenter({ lat: city.lat, lon: city.lon });
+    setShowDropdown(false);
+    setInputValue(city.name); // Optionally update inputValue to reflect the selected city
   };
 
   return (
@@ -96,11 +104,8 @@ function Searchbar({ searchStart, setStartDate, searchEnd, setEndDate, searchLoc
         <input
           type="text"
           placeholder="Search a city"
-          value={searchLocation}
-          onChange={(e) => {
-            setSearchLocation(e.target.value);
-            setShowDropdown(true);
-          }}
+          value={inputValue}
+          onChange={(e) => setInputValue(e.target.value)}
           onFocus={() => setShowDropdown(true)}
           onKeyDown={handleKeyDown}
           style={{ width: '100%', padding: '5px', marginBottom: '0' }}
@@ -116,11 +121,7 @@ function Searchbar({ searchStart, setStartDate, searchEnd, setEndDate, searchLoc
                   key={index}
                   ref={setRef}
                   onMouseOver={() => setHighlightIndex(index)}
-                  onClick={() => {
-                    setSearchLocation(city.name);
-                    setMapCenter({ lat: city.lat, lon: city.lon });
-                    setShowDropdown(false);
-                  }}
+                  onClick={() => handleSelectCity(city)}
                   style={{ padding: '10px', cursor: 'pointer', backgroundColor: index === highlightIndex ? '#f0f0f0' : 'transparent' }}
                 >
                   {city.name + ", " + city.country}
