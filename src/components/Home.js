@@ -18,8 +18,8 @@ function Home() {
   const [mapCenter, setMapCenter] = useState(null);
   const [showSidebar, setShowSidebar] = useState(false);
 
-  const { filteredEvents, bounds } = filterEvents(events, searchStart, searchEnd, searchLocation)
-  const first10 = filteredEvents.slice(0, 100);
+  const { filteredEvents, bounds } = filterEvents(events, searchStart, searchEnd, searchLocation);
+  const first10 = filteredEvents;
 
   const handleCitySelection = (location) => {
     setLocation(location);
