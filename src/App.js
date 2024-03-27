@@ -1,7 +1,7 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import { EventsProvider } from './contexts/EventsProvider';
-import { CitiesProvider } from './contexts/CitiesProvider';
+import { EventsProvider } from './contexts/EventsContext';
+import { CitiesProvider } from './contexts/CitiesContext';
 import EventsPage from './components/EventsPage';
 import Home from './components/Home';
 import AboutUs from './components/AboutUs';
