@@ -79,7 +79,7 @@ function Searchbar({ searchStart, setStartDate, searchEnd, setEndDate, searchLoc
         onChange={date => setStartDate(date)}
         dateFormat="yyyy-MM-dd"
         placeholderText="Start Date (YYYY-MM-DD)"
-        style={{ width: '30%', padding: '5px', marginLeft: '10px' , marginBottom: '10px'}}
+        className={`datepicker`} 
       />
 
       {/* End Date Picker */}
@@ -88,11 +88,11 @@ function Searchbar({ searchStart, setStartDate, searchEnd, setEndDate, searchLoc
         onChange={date => setEndDate(date)}
         dateFormat="yyyy-MM-dd"
         placeholderText="End Date (YYYY-MM-DD)"
-        style={{ width: '30%', padding: '5px', marginLeft: '10px' }}
+        className={`datepicker`}
       />
 
       {/* City Search and Select Input */}
-      <div style={{ position: 'relative', width: '30%' }}>
+      <div className="citypicker-container">
         <input
           type="text"
           placeholder="Search a city"
@@ -103,10 +103,10 @@ function Searchbar({ searchStart, setStartDate, searchEnd, setEndDate, searchLoc
           }}
           onFocus={() => setShowDropdown(true)}
           onKeyDown={handleKeyDown}
-          style={{ width: '100%', padding: '5px', marginBottom: '0' }}
+          style={{ width: '100%', padding: '5px', marginBottom: '0' , borderRadius: '5px', fontSize: '16px'}}
         />
         {showDropdown && (
-          <ul style={{ listStyleType: 'none', padding: 0, margin: 0, position: 'absolute', width: '100%', maxHeight: '200px', overflowY: 'auto', backgroundColor: 'white', border: '1px solid #ccc', borderTop: 'none', zIndex: 1001 }}>
+          <ul className='citypicker-dropdown'>
             {matchedCities.length > 0 ? matchedCities.map((city, index) => {
               // Assign ref to each item
               const setRef = el => itemRefs.current[index] = el;
