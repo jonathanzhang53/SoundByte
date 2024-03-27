@@ -8,7 +8,6 @@ import EventMap from './EventMap';
 import Sidebar from './Sidebar';
 
 import 'leaflet/dist/leaflet.css';
-import './styles.css'; // Import the CSS file
 
 function Home() {
   const { events } = useContext(EventsContext);
