@@ -12,9 +12,6 @@ const filterEvents = (events, searchStart, searchEnd, searchLocation) => {
                        (eventDate > startDate && eventDate <= endDate) || 
                        (eventDate > startDate && !searchEnd) || 
                        (!searchStart && eventDate <= endDate);
-    if(matchDates){
-      console.log(eventDate);
-    }
     const matchLocation = !searchLocation || event.venue.location.toLowerCase().startsWith(searchLocation.toLowerCase());
     return matchDates && matchLocation;
   }).map(event => ({
