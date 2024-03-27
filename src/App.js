@@ -6,6 +6,8 @@ import EventsPage from './components/EventsPage';
 import Home from './components/Home';
 import AboutUs from './components/AboutUs';
 import NavBar from './components/NavBar';
+import './index.css';
+
 
 function App() {
   return (

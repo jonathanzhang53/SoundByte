@@ -1,5 +1,4 @@
 import React from 'react';
-import './sidebar.css'; // Import the sidebar.css file
 
 function Sidebar({ events }) {
   if (!events || events.length === 0) {
