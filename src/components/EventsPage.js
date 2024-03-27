@@ -13,7 +13,9 @@ function EventsPage() {
   const {filteredEvents} = filterEvents(events, searchStart, searchEnd, searchLocation)
 
   return (
-    <>
+    <div className="home-container">
+      <div className="map-container">
+      <div style={{marginLeft: '250px', marginBottom: '40px'}}>
       <Searchbar
         searchStart={searchStart}
         setStartDate={setStart}
@@ -23,11 +25,13 @@ function EventsPage() {
         setSearchLocation={setLocation}
         setMapCenter={setMapCenter}
       />
+      </div>
       
       <ul>
         {filteredEvents.map((event) => (
           <li 
           key={`${event.name}-${event.formattedDate}-${event.venue.name}-${event.artistList.map(artist => artist.name).join('-')}`} 
+          className="event-container"
           >
             <strong>{event.name || 'Unnamed Event'}</strong>
             <p>Date: {event.formattedDate}</p>
@@ -38,7 +42,8 @@ function EventsPage() {
           </li>
         ))}
       </ul>
-    </>
+    </div>
+    </div>
   );
 }
 
