@@ -1,13 +1,22 @@
 /* Base Styles */
+:root {
+  /* Theme Colors */
+  --theme-color-1: #03ddff;
+  --theme-color-2: #fff;
+  --theme-color-3: #000;
+  --theme-color-4: #f000ff;
+}
+
 body {
-  background-color: black;
+  background-color: var(--theme-color-3);
   margin: 0;
   padding: 0;
+  font-family: 'Roboto', sans-serif;
 }
 
 @keyframes flicker {
   0%, 100% {
-    text-shadow: 0 0 10px #03ddff, 0 0 20px #03ddff, 0 0 30px #03ddff, 0 0 40px #03ddff, 0 0 70px #03ddff, 0 0 80px #03ddff, 0 0 100px #03ddff, 0 0 150px #03ddff;
+    text-shadow: 0 0 10px var(--theme-color-1), 0 0 20px var(--theme-color-1), 0 0 30px var(--theme-color-1), 0 0 40px var(--theme-color-1), 0 0 70px var(--theme-color-1), 0 0 80px var(--theme-color-1), 0 0 100px var(--theme-color-1), 0 0 150px var(--theme-color-1);
   }
   50% {
     text-shadow: none;
@@ -23,14 +32,14 @@ body {
   height: 100vh;
   width: 100vw;
   display: flex;
-  background-color: black;
+  background-color: var(--theme-color-3);
   padding-top: 20px;
 }
 
 /* Navigation Bar */
 nav,
 .navbar {
-  background-color: black;
+  background-color: var(--theme-color-3);
   margin-bottom: 20px;
 }
 
@@ -38,12 +47,16 @@ nav ul,
 .navbar-list {
   list-style-type: none;
   padding: 0;
+  text-align: center;
 }
 
 nav ul li,
 .navbar-item {
-  display: inline;
-  margin-right: 10px;
+  display: inline-block;
+  margin-right: 40px;
+  margin-left: 40px;
+  font-size: 18px;
+  font-weight: bold;
 }
 
 /* Link Styles */
@@ -53,9 +66,9 @@ nav a,
   padding: 10px 50px;
   border: none;
   border-radius: 5px;
-  color: #fff;
-  background-color: #03ddff;
-  box-shadow: 0 0 1px #03ddff, 0 0 1px #03ddff, 0 0 1px #03ddff, 0 0 5px #03ddff, 0 0 5px #03ddff, 0 0 40px #03ddff, 0 0 5px #03ddff, 0 0 15px #03ddff;
+  color: var(--theme-color-2);
+  background-color: var(--theme-color-1);
+  box-shadow: 0 0 1px var(--theme-color-1), 0 0 1px var(--theme-color-1), 0 0 1px var(--theme-color-1), 0 0 5px var(--theme-color-1), 0 0 5px var(--theme-color-1), 0 0 40px var(--theme-color-1), 0 0 5px var(--theme-color-1), 0 0 15px var(--theme-color-1);
   animation: flicker 1.5s infinite alternate;
   transition: all 0.3s ease;
   cursor: pointer;
@@ -68,22 +81,22 @@ nav a:hover {
 /* Event Container Styles */
 .event-container {
   margin-bottom: 10px;
-  border: 5px solid #03ddff;
+  border: 5px solid var(--theme-color-1);
   padding: 10px;
-  background-color: #000;
-  color: #03ddff;
+  background-color: var(--theme-color-3);
+  color: var(--theme-color-1);
   border-radius: 10px;
 }
 
 .event-container h3 {
   margin: 0;
-  color: #f000ff;
+  color: var(--theme-color-4);
 }
 
 .event-container p,
 .event-link {
   margin: 0;
-  color: #03ddff;
+  color: var(--theme-color-1);
 }
 
 .event-link:hover {
@@ -92,19 +105,19 @@ nav a:hover {
 
 /* About Us Page Styles */
 .container {
-  background-color: black;
-  color: white;
+  background-color: var(--theme-color-3);
+  color: var(--theme-color-2);
   padding: 50px 20px 20px 20px;
   line-height: 1.6;
 }
 
 .heading,
 .sub-heading {
-  color: white;
+  color: var(--theme-color-2);
 }
 
 .sub-heading {
-  border-bottom: 2px solid #03ddff;
+  border-bottom: 2px solid var(--theme-color-1);
   padding-bottom: 10px;
 }
 
@@ -118,7 +131,7 @@ nav a:hover {
 
 .team-member {
   width: 200px;
-  background-color: white;
+  background-color: var(--theme-color-2);
   border-radius: 10px;
   text-align: center;
   overflow: hidden;
@@ -152,12 +165,12 @@ nav a:hover {
 .react-datepicker__day:hover,
 .react-datepicker__day--selected,
 .react-datepicker__day--keyboard-selected {
-  border-color: black;
+  border-color: var(--theme-color-3);
 }
 
 .react-datepicker__header {
-  background-color: black;
-  color: #fff;
+  background-color: var(--theme-color-3);
+  color: var(--theme-color-2);
 }
 
 .react-datepicker__day--today {
@@ -169,10 +182,10 @@ nav a:hover {
 }
 
 .react-datepicker__month-container {
-  background-color: #fff;
+  background-color: var(--theme-color-2);
   border: 1px solid #ccc;
   border-radius: 5px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
 .react-datepicker__month {
@@ -207,7 +220,7 @@ nav a:hover {
   width: 100%;
   max-height: 200px;
   overflow-y: auto;
-  background-color: white;
+  background-color: var(--theme-color-2);
   border: 1px solid #ccc;
   border-top: none;
   z-index: 1001;
@@ -225,7 +238,7 @@ nav a:hover {
 /* Sidebar Styles */
 .sidebar-container {
   width: 95%;
-  background-color: #000;
+  background-color: var(--theme-color-3);
   padding: 5px;
   overflow-y: scroll;
 }
@@ -233,14 +246,14 @@ nav a:hover {
 .sidebar {
   width: 20%;
   height: 91%;
-  background-color: #000;
+  background-color: var(--theme-color-3);
   padding: 15px;
   overflow-y: auto;
   z-index: 2;
   border-radius: 15px;
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-  color: #03ddff;
-  border: 2px solid #03ddff;
+  color: var(--theme-color-1);
+  border: 2px solid var(--theme-color-1);
 }
 
 .sidebar:hover {
@@ -256,4 +269,41 @@ nav a:hover {
   width: 100%;
   height: 100%;
   z-index: 1;
+}
+
+.leaflet-layer,
+.leaflet-control-zoom-in,
+.leaflet-control-zoom-out,
+.leaflet-control-attribution {
+  filter: invert(100%) hue-rotate(180deg) brightness(95%) contrast(90%);
+}
+
+.marker-cluster span {
+  font-family: 'Roboto', sans-serif !important;
+  font-weight: 700 !important;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+.marker-cluster-small {
+  background-color: #FFFF33 !important; /* Neon Yellow */
+}
+
+.marker-cluster-small div {
+  background-color: #FFFF66 !important; /* Lighter Neon Yellow */
+}
+
+.marker-cluster-medium {
+  background-color: #FF5F1F !important; /* Neon Orange */
+}
+
+.marker-cluster-medium div {
+  background-color: #FF7F50 !important; /* Lighter Neon Orange */
+}
+
+.marker-cluster-large {
+  background-color: #FF073A !important; /* Neon Red */
+}
+
+.marker-cluster-large div {
+  background-color: #FF5175 !important; /* Lighter Neon Red */
 }
