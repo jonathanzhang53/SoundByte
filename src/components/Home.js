@@ -12,11 +12,9 @@ function Home() {
   const [searchStart, setStart] = useState('');
   const [searchEnd, setEnd] = useState('');
   const [searchLocation, setLocation] = useState('');
-  const [mapCenter, setMapCenter] = useState(null);
   const [showSidebar, setShowSidebar] = useState(false);
 
   const { filteredEvents, bounds } = filterEvents(events, searchStart, searchEnd, searchLocation);
-  const first10 = filteredEvents;
 
   const handleCitySelection = (location) => {
     setLocation(location);
@@ -32,17 +30,16 @@ function Home() {
           searchEnd={searchEnd}
           setEndDate={setEnd}
           setSearchLocation={handleCitySelection}
-          setMapCenter={setMapCenter}
         />
         
         <div className="event-map">
-          <EventMap filteredEvents={first10} center={mapCenter} bounds={bounds}/>
+          <EventMap filteredEvents={filteredEvents} center={null} bounds={bounds}/>
         </div>
       </div>
   
       {showSidebar && (
         <div className="sidebar">
-          <Sidebar events={first10} />
+          <Sidebar events={filteredEvents} />
         </div>
       )}
     </div>

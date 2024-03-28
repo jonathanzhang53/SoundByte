@@ -5,7 +5,7 @@ import Sidebar from './Sidebar';
 
 import 'react-datepicker/dist/react-datepicker.css';
 
-function Searchbar({ searchStart, setStartDate, searchEnd, setEndDate, setSearchLocation, setMapCenter }) {
+function Searchbar({ searchStart, setStartDate, searchEnd, setEndDate, setSearchLocation }) {
   const cities = useContext(CitiesContext);
   const [showSidebar, setShowSidebar] = useState(false);
   const [matchedCities, setMatchedCities] = useState([]);
@@ -16,7 +16,6 @@ function Searchbar({ searchStart, setStartDate, searchEnd, setEndDate, setSearch
   const itemRefs = useRef([]);
 
   useEffect(() => {
-    // Create or update refs for each dropdown item
     itemRefs.current = itemRefs.current.slice(0, matchedCities.length);
   }, [matchedCities]);
 
@@ -36,7 +35,7 @@ function Searchbar({ searchStart, setStartDate, searchEnd, setEndDate, setSearch
       setMatchedCities([]);
       setShowDropdown(false);
       setHighlightIndex(-1);
-      setShowSidebar(false); // Hide the sidebar when search location is cleared
+      setShowSidebar(false);
       return;
     }
 
@@ -44,7 +43,7 @@ function Searchbar({ searchStart, setStartDate, searchEnd, setEndDate, setSearch
     setMatchedCities(matches);
     setShowDropdown(true);
     setHighlightIndex(-1);
-    setShowSidebar(true); // Show the sidebar when a search location is entered
+    setShowSidebar(true);
   }, [inputValue, cities]);
 
   useEffect(() => {
@@ -67,16 +66,14 @@ function Searchbar({ searchStart, setStartDate, searchEnd, setEndDate, setSearch
       e.preventDefault();
       const selectedCity = matchedCities[highlightIndex];
       setSearchLocation(selectedCity.name);
-      setMapCenter({ lat: selectedCity.lat, lon: selectedCity.lon });
       setShowDropdown(false);
     }
   };
 
   const handleSelectCity = (city) => {
-    setSearchLocation(city.name); // Update searchLocation with the selected city's name
-    setMapCenter({ lat: city.lat, lon: city.lon });
+    setSearchLocation(city.name);
     setShowDropdown(false);
-    setInputValue(city.name); // Optionally update inputValue to reflect the selected city
+    setInputValue(city.name);
   };
 
   return (
@@ -113,7 +110,6 @@ function Searchbar({ searchStart, setStartDate, searchEnd, setEndDate, setSearch
         {showDropdown && (
           <ul className='citypicker-dropdown'>
             {matchedCities.length > 0 ? matchedCities.map((city, index) => {
-              // Assign ref to each item
               const setRef = el => itemRefs.current[index] = el;
 
               return (
