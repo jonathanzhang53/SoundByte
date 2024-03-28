@@ -37,8 +37,6 @@ const filterEvents = (events, searchStart, searchEnd, searchLocation) => {
     bounds = null;  // Indicates no valid bounds could be calculated
   }
 
-  console.log(bounds);
-
   return {filteredEvents, bounds};
 };
 
