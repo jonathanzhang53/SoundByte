@@ -59,31 +59,29 @@ function EventsPage() {
   };
 
   return (
-    <div className="home-container">
-      <div className="events-container">
-        <div className="searchbar-margin">
-          <Searchbar
-            searchStart={searchStart}
-            setStartDate={setStart}
-            searchEnd={searchEnd}
-            setEndDate={setEnd}
-            setSearchLocation={setLocation}
-          />
-        </div>
-        <ul>
-          {filteredEvents.map((event) => (
-            <div
-              key={`${event.name}-${event.formattedDate}-${event.venue.name}-${event.artistList.map(artist => artist.name).join('-')}`}
-              className="event-container"
-            >
-              {renderEventOrArtistInfo(event)}
-              {renderArtistsOrOpeners(event)}
-              <div>Learn more <a href={event.link} target="_blank" rel="noopener noreferrer" className="event-link">here</a>.</div>
-              <hr />
-            </div>
-          ))}
-        </ul>
+    <div className="events-container">
+      <div className="searchbar-margin">
+        <Searchbar
+          searchStart={searchStart}
+          setStartDate={setStart}
+          searchEnd={searchEnd}
+          setEndDate={setEnd}
+          setSearchLocation={setLocation}
+        />
       </div>
+      <ul>
+        {filteredEvents.map((event) => (
+          <div
+            key={`${event.name}-${event.formattedDate}-${event.venue.name}-${event.artistList.map(artist => artist.name).join('-')}`}
+            className="event-container"
+          >
+            {renderEventOrArtistInfo(event)}
+            {renderArtistsOrOpeners(event)}
+            <div>Learn more <a href={event.link} target="_blank" rel="noopener noreferrer" className="event-link">here</a>.</div>
+            <hr />
+          </div>
+        ))}
+      </ul>
     </div>
   );
 }

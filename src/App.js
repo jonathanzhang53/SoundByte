@@ -7,23 +7,22 @@ import EventsPage from './components/EventsPage';
 import AboutUs from './components/AboutUs';
 import NavBar from './components/NavBar';
 import './index.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 function App() {
   return (
     <Router>
-      <div className="app-layout">
-        <NavBar />
+      <NavBar />
 
-        <CitiesProvider>
-          <EventsProvider>
-            <Routes>
-              <Route path="/" element={<Home />} />
-              <Route path="/events" element={<EventsPage />} />
-              <Route path="/about" element={<AboutUs />} />
-            </Routes>
-          </EventsProvider>
-        </CitiesProvider>
-      </div>
+      <CitiesProvider>
+        <EventsProvider>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/events" element={<EventsPage />} />
+            <Route path="/about" element={<AboutUs />} />
+          </Routes>
+        </EventsProvider>
+      </CitiesProvider>
     </Router>
   );
 }
