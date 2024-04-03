@@ -120,7 +120,7 @@ function Searchbar({ searchStart, setStartDate, searchEnd, setEndDate, setSearch
                   onClick={() => handleSelectCity(city)}
                   style={{ padding: '10px', cursor: 'pointer', backgroundColor: index === highlightIndex ? '#f0f0f0' : 'transparent' }}
                 >
-                  {city.name + ", " + city.country}
+                  {city.name + ", " + city.admin_name + ", " + city.country}
                 </li>
               );
             }) : null}

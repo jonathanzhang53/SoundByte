@@ -1,5 +1,5 @@
 import L from 'leaflet';
-import mapMarkerSvg from './map_marker.svg';
+import mapMarkerSvg from './mapMarker.svg';
 
 export const createCustomIcon = () => {
   return new L.Icon({
