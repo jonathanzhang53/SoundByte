@@ -1,4 +1,5 @@
 import React, { createContext, useState, useEffect } from 'react';
+import * as d3 from 'd3';
 
 const CitiesContext = createContext();
 
@@ -7,33 +8,34 @@ export const CitiesProvider = ({ children }) => {
 
   useEffect(() => {
     const fetchData = async () => {
-      const query = `
-        [out:json];
-        (
-          node["place"="city"]["population"](if:t["population"] > 100000)
-          (-90.0, -180.0, 90.0, -30.0);
-        );
-        out;
-      `;
-      const encodedQuery = encodeURIComponent(query);
-      const overpassUrl = `https://overpass-api.de/api/interpreter?data=${encodedQuery}`;
+      // city data is currently too large to cache in localStorage
+      // const cachedData = localStorage.getItem('citiesData');
+      // if (cachedData) {
+      //   // console.log("cached city data: ", JSON.parse(cachedData));
+      //   setCities(JSON.parse(cachedData));
+      //   return;
+      // }
 
       try {
-        const response = await fetch(overpassUrl);
-        if (!response.ok) {
-          throw new Error(`HTTP error! status: ${response.status}`);
-        }
-        const data = await response.json();
-        const extractedCities = data.elements.map(element => ({
-          id: element.id,
-          name: element.tags.name,
-          lat: element.lat,
-          lon: element.lon,
-          country: "UnknownCountry"
+        const data = await d3.csv('worldCities.csv');
+        console.log("data from csv: ", data);
+        const extractedCities = data.map(city => ({
+          name: city.city,
+          admin_name: city.admin_name,
+          ascii: city.city_ascii,
+          country: city.country,
+          lat: +city.lat,
+          lng: +city.lng,
+          iso2: city.iso2,
+          iso3: city.iso3,
         }));
+
         setCities(extractedCities);
+        // console.log("city data: ", extractedCities);
+
+        // localStorage.setItem('citiesData', JSON.stringify(extractedCities));
       } catch (error) {
-        console.error("Could not fetch cities data from Overpass:", error);
+        console.error("Could not fetch cities data from the CSV:", error);
       }
     };
 
