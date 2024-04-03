@@ -18,7 +18,8 @@ export const CitiesProvider = ({ children }) => {
 
       try {
         const data = await d3.csv('worldCities.csv');
-        console.log("data from csv: ", data);
+        // console.log("data from csv: ", data);
+        
         const extractedCities = data.map(city => ({
           name: city.city,
           admin_name: city.admin_name,

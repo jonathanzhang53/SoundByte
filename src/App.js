@@ -11,7 +11,7 @@ import './index.css';
 function App() {
   return (
     <Router>
-      <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+      <div className="app-layout">
         <NavBar />
 
         <CitiesProvider>
