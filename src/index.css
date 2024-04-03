@@ -24,8 +24,10 @@ body {
 }
 
 /* Application Layout */
-.App {
-  text-align: center;
+.app-layout {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .home-container {
@@ -78,14 +80,30 @@ nav a:hover {
   box-shadow: 0px 0px 20px rgba(0, 255, 0, 0.5);
 }
 
-/* Event Container Styles */
+/* Events Page Styles */
+.events-container {
+  flex: 1;
+}
+
+.events-container
+.searchbar-margin {
+  margin-left: 250px;
+  margin-bottom: 40px;
+}
+
+.events-container
 .event-container {
-  margin-bottom: 10px;
+  margin: 10px;
   border: 5px solid var(--theme-color-1);
   padding: 10px;
   background-color: var(--theme-color-3);
-  color: var(--theme-color-1);
   border-radius: 10px;
+  color: var(--theme-color-2);
+}
+
+.event-container
+.event-name {
+  color: var(--theme-color-4);
 }
 
 .event-container h3 {
@@ -148,6 +166,17 @@ nav a:hover {
 .team-name {
   margin-top: 10px;
   font-weight: bold;
+}
+
+/* Searchbar Styles */
+.searchbar-wrapper {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+  width: 65%;
+  z-index: 1000;
+  margin-left: 100px;
+  position: absolute;
 }
 
 /* Date Picker Styles */
@@ -229,6 +258,7 @@ nav a:hover {
 .citypicker-dropdown-item {
   padding: 10px;
   cursor: pointer;
+  background-color: transparent;
 }
 
 .citypicker-dropdown-item.highlighted {
@@ -261,6 +291,11 @@ nav a:hover {
 }
 
 /* Map Container Styles */
+.event-map-layout  {
+  height: calc(100vh - 100px);
+  width: 100%;
+}
+
 .map-container {
   flex: 1;
 }
@@ -271,6 +306,7 @@ nav a:hover {
   z-index: 1;
 }
 
+/* Leaflet Styles */
 .leaflet-layer,
 .leaflet-control-zoom-in,
 .leaflet-control-zoom-out,

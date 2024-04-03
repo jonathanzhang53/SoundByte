@@ -77,7 +77,7 @@ function Searchbar({ searchStart, setStartDate, searchEnd, setEndDate, setSearch
   };
 
   return (
-    <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '10px', width: '65%', zIndex: 1000, marginLeft: '100px', position: 'absolute' }} ref={wrapperRef}>
+    <div className="searchbar-wrapper" ref={wrapperRef}>
       {/* Start Date Picker */}
       <DatePicker
         selected={searchStart}
@@ -105,20 +105,21 @@ function Searchbar({ searchStart, setStartDate, searchEnd, setEndDate, setSearch
           onChange={(e) => setInputValue(e.target.value)}
           onFocus={() => setShowDropdown(true)}
           onKeyDown={handleKeyDown}
-          style={{ width: '100%', padding: '5px', marginBottom: '0' , borderRadius: '5px', fontSize: '16px'}}
+          className="citypicker-input"
         />
         {showDropdown && (
           <ul className='citypicker-dropdown'>
             {matchedCities.length > 0 ? matchedCities.map((city, index) => {
               const setRef = el => itemRefs.current[index] = el;
-
+              const itemClass = `citypicker-dropdown-item ${index === highlightIndex ? 'highlighted' : ''}`;
+        
               return (
                 <li
                   key={index}
                   ref={setRef}
                   onMouseOver={() => setHighlightIndex(index)}
                   onClick={() => handleSelectCity(city)}
-                  style={{ padding: '10px', cursor: 'pointer', backgroundColor: index === highlightIndex ? '#f0f0f0' : 'transparent' }}
+                  className={itemClass}
                 >
                   {city.name + ", " + city.admin_name + ", " + city.country}
                 </li>

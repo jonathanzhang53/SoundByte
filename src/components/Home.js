@@ -22,7 +22,7 @@ function Home() {
   }
 
   return (
-    <div className="home-container"> {/* Use class names instead of inline styles */}
+    <div className="home-container">
       <div className="map-container">
         <Searchbar
           searchStart={searchStart}
