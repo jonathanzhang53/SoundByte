@@ -23,7 +23,7 @@ function Home() {
 
   return (
     <div className="home-container">
-      <div className="map-container">
+      <div className="main-map-container main-border">
         <Searchbar
           searchStart={searchStart}
           setStartDate={setStart}
@@ -32,13 +32,11 @@ function Home() {
           setSearchLocation={handleCitySelection}
         />
         
-        <div className="event-map">
-          <EventMap filteredEvents={filteredEvents} center={null} bounds={bounds}/>
-        </div>
+        <EventMap filteredEvents={filteredEvents} center={null} bounds={bounds}/>
       </div>
   
       {showSidebar && (
-        <div className="sidebar">
+        <div className="sidebar main-border">
           <Sidebar events={filteredEvents} />
         </div>
       )}
