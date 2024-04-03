@@ -70,9 +70,9 @@ function EventsPage() {
         />
       </div>
       <ul>
-        {filteredEvents.map((event) => (
+        {filteredEvents.map((event, index) => (
           <div
-            key={`${event.name}-${event.formattedDate}-${event.venue.name}-${event.artistList.map(artist => artist.name).join('-')}`}
+            key={{index}>`${event.name}-${event.formattedDate}-${event.venue.name}-${event.artistList.map(artist => artist.name).join('-')}`}
             className="event-container"
           >
             {renderEventOrArtistInfo(event)}
