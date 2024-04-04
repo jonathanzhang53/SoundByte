@@ -1,20 +1,30 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
+import logo from '../../common/logo.svg';
 
 function Navbar() {
+  const getNavLinkClass = ({ isActive }) => isActive ? 'nav-link active' : 'nav-link';
+
   return (
-    <nav className="custom-navbar">
-      <ul className="navbar-list">
-        <li className="navbar-item">
-          <Link to="/" className="link-style">Home</Link>
-        </li>
-        <li className="navbar-item">
-          <Link to="/events" className="link-style">Events</Link>
-        </li>
-        <li className="navbar-item">
-          <Link to="/about" className="link-style">About Us</Link>
-        </li>
-      </ul>
+    <nav className="custom-navbar navbar navbar-expand-lg">
+      <div className="container-fluid justify-content-center">
+        <NavLink to="/" className="navbar-brand me-5">
+          <img src={logo} alt="Logo" className="navbar-logo" />
+        </NavLink>
+        <div className="collapse navbar-collapse" id="navbarNav">
+          <ul className="navbar-list navbar-nav">
+            <li className="link-style nav-item">
+              <NavLink to="/" className={getNavLinkClass}>Home</NavLink>
+            </li>
+            <li className="link-style nav-item">
+              <NavLink to="/events" className={getNavLinkClass}>Events</NavLink>
+            </li>
+            <li className="link-style nav-item">
+              <NavLink to="/about" className={getNavLinkClass}>About Us</NavLink>
+            </li>
+          </ul>
+        </div>
+      </div>
     </nav>
   );
 }

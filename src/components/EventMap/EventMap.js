@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { MapContainer, TileLayer, useMap } from 'react-leaflet';
 import L from 'leaflet';
-import { createCustomIcon } from '../../common/icons';
+import { createCustomIcon } from '../../utils/icons';
 import 'leaflet.markercluster/dist/leaflet.markercluster';
 import 'leaflet.markercluster/dist/MarkerCluster.Default.css';
 import MapCenterUpdater from '../MapCenterUpdater/MapCenterUpdater';

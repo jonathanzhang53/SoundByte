@@ -67,46 +67,69 @@ body {
 }
 
 /* Navigation Bar */
-nav,
 .custom-navbar {
   background-color: var(--theme-color-3);
-  margin-bottom: 20px;
-  margin-top: 20px;
 }
 
-nav ul,
-.navbar-list {
-  list-style-type: none;
-  padding: 0;
-  text-align: center;
+.custom-navbar 
+.navbar-collapse {
+  display: flex;
+  justify-content: flex-end;
 }
 
-nav ul li,
-.navbar-item {
+.custom-navbar 
+.navbar-logo {
+  height: 50px;
+}
+
+.custom-navbar 
+a,
+.custom-navbar 
+.nav-link {
+  color: var(--theme-color-1);
+}
+
+.custom-navbar
+.nav-link.active {
+  /* Need to override Bootstrap's default active link color */
+  color: var(--theme-color-1) !important;
+  background-color: transparent !important; 
+}
+
+.custom-navbar 
+ul
+li {
   display: inline-block;
-  margin-right: 40px;
-  margin-left: 40px;
+  margin: 0 20px;
   font-size: 18px;
   font-weight: bold;
 }
 
-/* Link Styles */
-nav a,
+.custom-navbar 
 .link-style {
-  text-decoration: none;
-  padding: 10px 50px;
-  border: none;
-  border-radius: 5px;
-  color: var(--theme-color-2);
-  opacity: 0.8;
-  background-color: var(--theme-color-1);
-  box-shadow: 0 0 1px var(--theme-color-1);
-  transition: all 0.3s ease;
-  cursor: pointer;
+  position: relative;
 }
 
-nav a:hover {
-  box-shadow: 0 0 1px var(--theme-color-5), 0 0 1px var(--theme-color-5), 0 0 1px var(--theme-color-5), 0 0 5px var(--theme-color-5), 0 0 5px var(--theme-color-5), 0 0 40px var(--theme-color-5), 0 0 5px var(--theme-color-5), 0 0 15px var(--theme-color-5), 0px 0px 20px rgba(0, 255, 0, 0.5);
+.custom-navbar 
+.link-style::before {
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 2px;
+  background-color: var(--theme-color-1);
+  transform: scaleX(0);
+  transition: transform 0.3s ease-in-out;
+}
+
+.custom-navbar
+.link-style:hover::before {
+  transform: scaleX(1);
+}
+
+.custom-navbar
+.link-style 
+.nav-link:hover {
+  color: var(--theme-color-1);
   animation: flicker 1.5s infinite alternate;
 }
 
