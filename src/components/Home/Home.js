@@ -1,9 +1,9 @@
 import React, { useState, useContext } from 'react';
-import EventsContext from '../contexts/EventsContext';
-import filterEvents from '../hooks/filterEvents';
-import Searchbar from './Searchbar';
-import EventMap from './EventMap';
-import Sidebar from './Sidebar';
+import EventsContext from '../../contexts/EventsContext';
+import filterEvents from '../../hooks/filterEvents';
+import Searchbar from '../Searchbar/Searchbar';
+import EventMap from '../EventMap/EventMap';
+import Sidebar from '../Sidebar/Sidebar';
 
 import 'leaflet/dist/leaflet.css';
 

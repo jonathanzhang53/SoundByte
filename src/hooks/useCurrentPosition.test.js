@@ -1,6 +1,6 @@
 import React from 'react';
 import { render, act } from '@testing-library/react';
-import useCurrentPosition from '../../src/hooks/useCurrentPosition';
+import useCurrentPosition from './useCurrentPosition';
 
 // Mock component that uses the hook
 function MockComponent({ defaultPosition }) {

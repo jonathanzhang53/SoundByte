@@ -1,8 +1,8 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
-import logo from '../assets/logo.svg';
+import logo from '../../common/logo.svg';
 
-function NavBar() {
+function Navbar() {
   const getNavLinkClass = ({ isActive }) => isActive ? 'nav-link active' : 'nav-link';
 
   return (
@@ -29,4 +29,4 @@ function NavBar() {
   );
 }
 
-export default NavBar;
+export default Navbar;

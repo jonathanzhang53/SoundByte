@@ -1,5 +1,5 @@
-import { transformEvents } from '../../src/assets/transformEvents';
-import Event, { Artist, Venue } from '../../src/models/Event';
+import { transformEvents } from './transformEvents';
+import Event, { Artist, Venue } from '../models/Event';
 
 const mockEvents = [
   {
