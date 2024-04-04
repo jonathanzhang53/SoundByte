@@ -1,7 +1,7 @@
 import React, { useState, useContext } from 'react';
 import EventsContext from '../../contexts/EventsContext';
 import filterEvents from '../../hooks/filterEvents';
-import Searchbar from '../Searchbar/Searchbar';
+import EventFilter from '../EventFilter/EventFilter';
 import EventMap from '../EventMap/EventMap';
 import Sidebar from '../Sidebar/Sidebar';
 
@@ -24,7 +24,7 @@ function Home() {
   return (
     <div className="home-container">
       <div className="main-map-container main-border">
-        <Searchbar
+        <EventFilter
           searchStart={searchStart}
           setStartDate={setStart}
           searchEnd={searchEnd}

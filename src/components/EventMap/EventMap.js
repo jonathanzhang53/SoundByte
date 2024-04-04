@@ -1,11 +1,12 @@
 import React, { useEffect } from 'react';
 import { MapContainer, TileLayer, useMap } from 'react-leaflet';
 import L from 'leaflet';
-import { createCustomIcon } from '../../utils/icons';
 import 'leaflet.markercluster/dist/leaflet.markercluster';
 import 'leaflet.markercluster/dist/MarkerCluster.Default.css';
+import { createCustomIcon } from '../../utils/icons';
 import MapCenterUpdater from '../MapCenterUpdater/MapCenterUpdater';
 import useCurrentPosition from '../../hooks/useCurrentPosition';
+import './EventMap.css';
 
 function ClusteredMarkers({ filteredEvents, customIcon }) {
   const map = useMap();
@@ -72,7 +73,7 @@ function EventMap({ filteredEvents, center, bounds }) {
   }, [center, setCurrentPosition]);
 
   return (
-    <MapContainer center={currentPosition} minZoom={3} zoom={13} maxBounds={[[90, -180], [-90, 180]]} className="event-map-layout">
+    <MapContainer center={currentPosition} minZoom={3} zoom={13} maxBounds={[[90, -180], [-90, 180]]} className="event-map-container">
       <TileLayer
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'

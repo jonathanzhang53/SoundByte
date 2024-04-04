@@ -1,6 +1,7 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 import logo from '../../common/logo.svg';
+import './Navbar.css';
 
 function Navbar() {
   const getNavLinkClass = ({ isActive }) => isActive ? 'nav-link active' : 'nav-link';
