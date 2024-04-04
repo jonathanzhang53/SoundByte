@@ -1,4 +1,5 @@
 import React from 'react';
+import './Sidebar.css';
 
 function Sidebar({ events }) {
   if (!events || events.length === 0) {
@@ -6,7 +7,7 @@ function Sidebar({ events }) {
   }
 
   return (
-    <div className="sidebar-container">
+    <div className="map-sidebar-container">
       {events && events.length > 0 ? (
         events.map(event => (
           <div 

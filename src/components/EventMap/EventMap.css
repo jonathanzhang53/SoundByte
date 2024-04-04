@@ -1,0 +1,42 @@
+/* Event Map Styles */
+
+.event-map-container  {
+  height: 85vh;
+  width: 100%;
+  z-index: 1;
+}
+
+/* Leaflet Map Styles */
+.leaflet-layer, .leaflet-control-zoom-in, .leaflet-control-zoom-out, .leaflet-control-attribution {
+  filter: invert(100%) hue-rotate(180deg) brightness(95%) contrast(90%);
+}
+
+.marker-cluster span {
+  font-family: 'Roboto', sans-serif !important;
+  font-weight: 700 !important;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+.marker-cluster-small {
+  background-color: #FFFF33 !important; /* Neon Yellow */
+}
+
+.marker-cluster-small div {
+  background-color: #FFFF66 !important; /* Lighter Neon Yellow */
+}
+
+.marker-cluster-medium {
+  background-color: #FF5F1F !important; /* Neon Orange */
+}
+
+.marker-cluster-medium div {
+  background-color: #FF7F50 !important; /* Lighter Neon Orange */
+}
+
+.marker-cluster-large {
+  background-color: #FF073A !important; /* Neon Red */
+}
+
+.marker-cluster-large div {
+  background-color: #FF5175 !important; /* Lighter Neon Red */
+}

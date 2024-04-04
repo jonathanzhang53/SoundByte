@@ -3,8 +3,9 @@ import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import Sidebar from '../Sidebar/Sidebar';
 import CitiesContext from '../../contexts/CitiesContext';
+import './EventFilter.css';
 
-function Searchbar({ searchStart, setStartDate, searchEnd, setEndDate, setSearchLocation }) {
+function EventFilter({ searchStart, setStartDate, searchEnd, setEndDate, setSearchLocation }) {
   const cities = useContext(CitiesContext);
   const [showSidebar, setShowSidebar] = useState(false);
   const [matchedCities, setMatchedCities] = useState([]);
@@ -134,4 +135,4 @@ function Searchbar({ searchStart, setStartDate, searchEnd, setEndDate, setSearch
   );
 }
 
-export default Searchbar;
+export default EventFilter;

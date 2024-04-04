@@ -1,7 +1,7 @@
 import React, { useState, useContext } from 'react';
 import EventsContext from '../../contexts/EventsContext';
 import filterEvents from '../../hooks/filterEvents';
-import Searchbar from '../Searchbar/Searchbar';
+import EventFilter from '../EventFilter/EventFilter';
 
 function EventsPage() {
   const { events } = useContext(EventsContext);
@@ -61,7 +61,7 @@ function EventsPage() {
   return (
     <div className="events-container">
       <div className="searchbar-margin">
-        <Searchbar
+        <EventFilter
           searchStart={searchStart}
           setStartDate={setStart}
           searchEnd={searchEnd}
