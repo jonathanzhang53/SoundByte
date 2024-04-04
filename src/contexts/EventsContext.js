@@ -1,5 +1,5 @@
 import React, { createContext, useState, useEffect } from 'react';
-import { transformEvents } from '../assets/transformEvents';
+import { transformEvents } from '../common/transformEvents';
 
 const EventsContext = createContext();
 

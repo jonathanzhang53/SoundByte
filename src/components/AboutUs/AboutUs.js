@@ -1,10 +1,9 @@
 import React from 'react';
-import jona from "../assets/pictures/jona.png";
-import court from "../assets/pictures/court.png";
-import andrew from "../assets/pictures/andrew.png";
-import cam from "../assets/pictures/cam.png";
-import hannah from "../assets/pictures/hannah.png";
-import "../index.css"; // Import index.css from App.js
+import jona from "./jona.png";
+import court from "./court.png";
+import andrew from "./andrew.png";
+import cam from "./cam.png";
+import hannah from "./hannah.png";
 
 function AboutUs() {
   const teamMembers = [

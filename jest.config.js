@@ -1,8 +1,8 @@
 module.exports = {
     clearMocks: true,
     moduleNameMapper: {
-        '\\.(jpg|jpeg|png|gif|webp|svg)$': '<rootDir>/__mocks__/fileMock.js',
-        '\\.(css|less)$': '<rootDir>/__mocks__/styleMock.js',
+        '\\.(jpg|jpeg|png|gif|webp|svg)$': '<rootDir>/src/common/testMocks/fileMock.js',
+        '\\.(css|less)$': '<rootDir>/src/common/testMocks/styleMock.js',
     },
 
     transform: {

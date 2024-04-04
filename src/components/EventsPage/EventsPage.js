@@ -1,7 +1,7 @@
 import React, { useState, useContext } from 'react';
-import EventsContext from '../contexts/EventsContext';
-import filterEvents from '../hooks/filterEvents';
-import Searchbar from './Searchbar';
+import EventsContext from '../../contexts/EventsContext';
+import filterEvents from '../../hooks/filterEvents';
+import Searchbar from '../Searchbar/Searchbar';
 
 function EventsPage() {
   const { events } = useContext(EventsContext);

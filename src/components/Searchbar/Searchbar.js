@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef, useContext } from 'react';
 import DatePicker from 'react-datepicker';
-import CitiesContext from '../contexts/CitiesContext';
-import Sidebar from './Sidebar';
+import CitiesContext from '../../contexts/CitiesContext';
+import Sidebar from '../Sidebar/Sidebar';
 
 import 'react-datepicker/dist/react-datepicker.css';
 

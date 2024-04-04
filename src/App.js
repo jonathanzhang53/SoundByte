@@ -2,17 +2,17 @@ import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { EventsProvider } from './contexts/EventsContext';
 import { CitiesProvider } from './contexts/CitiesContext';
-import Home from './components/Home';
-import EventsPage from './components/EventsPage';
-import AboutUs from './components/AboutUs';
-import NavBar from './components/NavBar';
+import Home from './components/Home/Home';
+import EventsPage from './components/EventsPage/EventsPage';
+import AboutUs from './components/AboutUs/AboutUs';
+import Navbar from './components/Navbar/Navbar';
 import './index.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 function App() {
   return (
     <Router>
-      <NavBar />
+      <Navbar />
 
       <CitiesProvider>
         <EventsProvider>
